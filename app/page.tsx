@@ -5,7 +5,7 @@ const installCommand = "pip install torchgeo";
 
 const navigation = [
   { href: "https://torchgeo.readthedocs.io", label: "Docs" },
-  { href: "https://github.com/microsoft/torchgeo", label: "GitHub" },
+  { href: "https://github.com/torchgeo/torchgeo", label: "GitHub" },
   { href: "https://pypi.org/project/torchgeo", label: "PyPI" },
   { href: "https://arxiv.org/abs/2111.08872", label: "Paper" },
 ];
@@ -14,7 +14,7 @@ const metrics = [
   { value: "50+", label: "benchmark datasets" },
   { value: "30+", label: "pretrained weights" },
   { value: "CRS-aware", label: "data handling" },
-  { value: "Apache 2.0", label: "open source" },
+  { value: "MIT", label: "open source" },
 ];
 
 const surfaces = [
@@ -260,7 +260,7 @@ export default function Home() {
                 Read the guide
               </a>
               <a
-                href="https://github.com/microsoft/torchgeo"
+                href="https://github.com/torchgeo/torchgeo"
                 className="button button-secondary"
               >
                 View source
@@ -270,7 +270,7 @@ export default function Home() {
 
             <div className="install-card">
               <code>{installCommand}</code>
-              <span>Apache 2.0 license. PyTorch-native API surface.</span>
+              <span>MIT license.</span>
             </div>
           </div>
 
@@ -488,7 +488,7 @@ model = resnet18(weights=weights)`}</code>
 
           <div className="footer-links">
             <a href="https://torchgeo.readthedocs.io">Documentation</a>
-            <a href="https://github.com/microsoft/torchgeo">GitHub</a>
+            <a href="https://github.com/torchgeo/torchgeo">GitHub</a>
             <a href="https://pypi.org/project/torchgeo">PyPI</a>
             <a href="https://arxiv.org/abs/2111.08872">Paper</a>
           </div>
