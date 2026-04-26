@@ -2,6 +2,7 @@
   "name": "torchgeo.github.io",
   "private": true,
   "version": "0.1.0",
+  "license": "CC-BY-4.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
