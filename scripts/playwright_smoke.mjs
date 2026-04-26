@@ -36,17 +36,20 @@ const logoOk = await page.locator(".topbar__brand img").evaluate((el) => {
 });
 log("topbar logo loaded", logoOk);
 
-// 3. Mosaic renders all 64 tiles
-const tileCount = await page.locator(".mosaic__tile").count();
-log("mosaic has 64 tiles", tileCount === 64, `count=${tileCount}`);
+// 3. Hero asset renders the real Landsat composite
+const heroImg = await page.locator(".hero-asset__img").evaluate((el) => {
+  const img = /** @type {HTMLImageElement} */ (el);
+  return img.complete && img.naturalWidth > 0;
+});
+log("hero asset image loaded", heroImg);
 
-// 4. Mosaic crosshair label updates over time
-const crosshair = page.locator(".mosaic__crosshair-label");
-const label1 = await crosshair.textContent();
-await page.waitForTimeout(3500);
-const label2 = await crosshair.textContent();
+// 4. Hero sampler tag rotates through label states
+const tag = page.locator(".hero-asset__sampler-tag");
+const label1 = await tag.textContent();
+await page.waitForTimeout(2700);
+const label2 = await tag.textContent();
 log(
-  "crosshair animates",
+  "sampler tag animates",
   label1 !== label2,
   `${label1?.slice(0, 24)} → ${label2?.slice(0, 24)}`,
 );
@@ -121,19 +124,64 @@ await page.waitForTimeout(450);
 const sl2 = await carouselTrack.evaluate((el) => el.scrollLeft);
 log("video carousel advances", sl1 !== sl2, `scrollLeft ${sl1} → ${sl2}`);
 
-// 10. Partner logos load
-const partnerSrcs = await page.locator(".partner img").evaluateAll((imgs) =>
-  imgs.map(
-    /** @param {HTMLImageElement} i */ (i) => ({
-      ok: i.complete && i.naturalWidth > 0,
-      src: i.getAttribute("src"),
-    }),
-  ),
-);
+// 10. Member-org logos load (sponsors section, dark variants)
+const partnerSrcs = await page
+  .locator(".sponsors__cell img")
+  .evaluateAll((imgs) =>
+    imgs.map(
+      /** @param {HTMLImageElement} i */ (i) => ({
+        ok: i.complete && i.naturalWidth > 0,
+        src: i.getAttribute("src"),
+      }),
+    ),
+  );
 log(
-  "all partner logos loaded",
+  "all member-org logos loaded",
   partnerSrcs.length === 5 && partnerSrcs.every((p) => p.ok),
   partnerSrcs.map((p) => `${p.src}=${p.ok}`).join(" "),
+);
+
+// 10b. Stewarded-by light-variant logos load
+const stewardSrcs = await page
+  .locator(".stewards__logo img")
+  .evaluateAll((imgs) =>
+    imgs.map(
+      /** @param {HTMLImageElement} i */ (i) => ({
+        ok: i.complete && i.naturalWidth > 0,
+        src: i.getAttribute("src"),
+      }),
+    ),
+  );
+log(
+  "all stewarded-by logos loaded",
+  stewardSrcs.length === 5 && stewardSrcs.every((p) => p.ok),
+  stewardSrcs.map((p) => `${p.src}=${p.ok}`).join(" "),
+);
+
+// 10c. Hero stats wired
+const statCount = await page.locator(".hero__meta-item").count();
+log("hero stats row has 4 items", statCount === 4, `count=${statCount}`);
+
+// 10d. Citations section renders venues + institutions
+const venueCount = await page.locator(".research__venues li").count();
+const instCount = await page.locator(".research__inst").count();
+log(
+  "research section populated",
+  venueCount > 0 && instCount > 0,
+  `venues=${venueCount} insts=${instCount}`,
+);
+
+// 10e. Sponsor CTAs link to GitHub Sponsors
+const sponsorHrefs = await page
+  .locator("a[href*='github.com/sponsors/torchgeo']")
+  .evaluateAll((els) => els.length);
+log("sponsor links present", sponsorHrefs >= 3, `count=${sponsorHrefs}`);
+
+// 10f. Footer BibTeX block
+const bibtex = await page.locator(".footer__bibtex").textContent();
+log(
+  "footer bibtex includes stewart2022torchgeo",
+  /stewart2022torchgeo/.test(bibtex ?? ""),
 );
 
 // 11. Footer links present
@@ -141,16 +189,20 @@ const footerLinks = await page.locator(".footer a").count();
 log("footer has links", footerLinks > 8, `count=${footerLinks}`);
 
 // 12. Anchor nav scroll: clicking "Datasets" jumps to that section
-await page.evaluate(() => window.scrollTo(0, 0));
-await page.waitForTimeout(150);
+await page.evaluate(() => {
+  document.documentElement.style.scrollBehavior = "auto";
+  window.scrollTo(0, 0);
+});
+await page.waitForFunction(() => window.scrollY === 0);
 const yBefore = await page.evaluate(() => window.scrollY);
 await page.locator(".topbar__nav a", { hasText: "Datasets" }).click();
-await page.waitForTimeout(900);
-const yAfter = await page.evaluate(() => window.scrollY);
+const datasetsTop = await page
+  .locator("#datasets")
+  .evaluate((el) => Math.round(el.getBoundingClientRect().top));
 log(
   "nav anchor scrolls to #datasets",
-  Math.abs(yAfter - yBefore) > 200,
-  `${yBefore} → ${yAfter}`,
+  yBefore === 0 && Math.abs(datasetsTop) < 90,
+  `start=${yBefore}, targetTop=${datasetsTop}`,
 );
 
 // 13. Scrollbar tokens applied

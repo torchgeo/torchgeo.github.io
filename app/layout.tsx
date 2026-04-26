@@ -1,21 +1,19 @@
 import type { Metadata } from "next";
-import {
-  JetBrains_Mono,
-  Source_Sans_3,
-  Source_Serif_4,
-} from "next/font/google";
+import { Fraunces, Inter_Tight, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const sourceSerif = Source_Serif_4({
+const fraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-display",
+  style: ["normal", "italic"],
   display: "swap",
+  axes: ["opsz", "SOFT"],
 });
 
-const sourceSans = Source_Sans_3({
+const interTight = Inter_Tight({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
   variable: "--font-body",
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
@@ -40,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${sourceSerif.variable} ${sourceSans.variable} ${jetbrainsMono.variable}`}
+        className={`${fraunces.variable} ${interTight.variable} ${jetbrainsMono.variable}`}
       >
         {children}
       </body>

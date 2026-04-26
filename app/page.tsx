@@ -1,15 +1,21 @@
 import Image from "next/image";
 import type { SVGProps } from "react";
+import citationsData from "../public/data/torchgeo_citations.json";
 import { CodeTabs } from "./code-tabs";
 import { CompareSlider } from "./compare-slider";
 import { HeroMosaic } from "./hero-mosaic";
 import { type Video, VideoCarousel } from "./video-carousel";
 
+const SPONSOR_URL = "https://github.com/sponsors/torchgeo";
+const GET_STARTED_URL =
+  "https://torchgeo.readthedocs.io/en/stable/tutorials/getting_started.html";
+
 const navigation = [
   { href: "https://torchgeo.readthedocs.io", label: "Docs" },
   { href: "#datasets", label: "Datasets" },
   { href: "#models", label: "Models" },
-  { href: "#community", label: "Community" },
+  { href: "#research", label: "Research" },
+  { href: "#sponsors", label: "Sponsors" },
 ];
 
 const surfaces = [
@@ -97,23 +103,55 @@ const models = [
     bands: "S2 · 13 ch",
     desc: "Seasonal-contrast pretraining over a million Sentinel-2 image pairs — first-class baseline.",
     sensor: "Sentinel-2",
-    sensorDot: "#2EE5A2",
+    sensorDot: "#3CC0A8",
   },
   {
     name: "SSL4EO",
     bands: "S1 + S2 · 15 ch",
     desc: "A 1M-image SSL benchmark — DINO, MoCo, MAE, Data2Vec checkpoints all under one API.",
     sensor: "SAR + optical",
-    sensorDot: "#6BE5D6",
+    sensorDot: "#6BC5E5",
   },
 ];
 
-const partners = [
-  { src: "/partners/ai4g_dark.svg", alt: "Microsoft AI for Good" },
-  { src: "/partners/tum_dark.svg", alt: "Technical University of Munich" },
-  { src: "/partners/tg_dark.svg", alt: "Taylor Geospatial Institute" },
-  { src: "/partners/space42_dark.svg", alt: "Space42" },
-  { src: "/partners/ibm.svg", alt: "IBM" },
+// Member organizations. `light` variants render against paper; `dark`
+// variants (white logos) render against the navy sponsors section.
+const members = [
+  {
+    light: "/partners/ai4g_light.svg",
+    dark: "/partners/ai4g_dark.svg",
+    alt: "Microsoft AI for Good",
+    name: "Microsoft AI for Good",
+    role: "Founding org",
+  },
+  {
+    light: "/partners/tum_light.svg",
+    dark: "/partners/tum_dark.svg",
+    alt: "Technical University of Munich",
+    name: "TU Munich",
+    role: "Member",
+  },
+  {
+    light: "/partners/tg_light.svg",
+    dark: "/partners/tg_dark.svg",
+    alt: "Taylor Geospatial Institute",
+    name: "Taylor Geospatial Institute",
+    role: "Member",
+  },
+  {
+    light: "/partners/space42_light.svg",
+    dark: "/partners/space42_dark.svg",
+    alt: "Space42",
+    name: "Space42",
+    role: "Member",
+  },
+  {
+    light: "/partners/ibm.svg",
+    dark: "/partners/ibm.svg",
+    alt: "IBM",
+    name: "IBM Research",
+    role: "Member",
+  },
 ];
 
 const videos: Video[] = [
@@ -164,6 +202,74 @@ const videos: Video[] = [
   },
 ];
 
+// --- Static derivations from torchgeo_citations.json (132 papers) ----------
+type CitationPaper = {
+  title?: string;
+  year?: number;
+  venue?: string | null;
+  citedByCount?: number | null;
+  authors?: { affiliations?: string[] | null }[];
+};
+const citingPapers = (citationsData.papers ?? []) as CitationPaper[];
+const citingCount = citingPapers.length;
+const downstreamCitations = citingPapers.reduce(
+  (acc, p) => acc + (p.citedByCount ?? 0),
+  0,
+);
+// Top venues (skip preprints + JOSS for the marquee).
+const venueCounts = new Map<string, number>();
+for (const p of citingPapers) {
+  const v = (p.venue ?? "").trim();
+  if (!v || v === "arXiv.org") continue;
+  venueCounts.set(v, (venueCounts.get(v) ?? 0) + 1);
+}
+const topVenues = Array.from(venueCounts.entries())
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 6)
+  .map(([name, n]) => ({ name, n }));
+// Top institutions by paper-count, taking the first comma-segment as the
+// canonical institution name and de-duping per paper.
+const instCounts = new Map<string, number>();
+for (const p of citingPapers) {
+  const seen = new Set<string>();
+  for (const a of p.authors ?? []) {
+    for (const af of a.affiliations ?? []) {
+      const inst = af.split(",")[0].trim();
+      if (!inst || seen.has(inst)) continue;
+      seen.add(inst);
+      instCounts.set(inst, (instCounts.get(inst) ?? 0) + 1);
+    }
+  }
+}
+const topInstitutions = Array.from(instCounts.entries())
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 14)
+  .map(([name]) => name);
+
+const yearSpan = (() => {
+  const ys = citingPapers.map((p) => p.year ?? 0).filter(Boolean);
+  if (!ys.length) return "—";
+  return `${Math.min(...ys)} → ${Math.max(...ys)}`;
+})();
+
+// --- Live-ish project metrics. Refreshed periodically; keep generous floors.
+const heroStats = [
+  { num: "4,000+", lbl: "GitHub stars" },
+  { num: "254k", lbl: "PyPI downloads / mo" },
+  { num: "100+", lbl: "Contributors" },
+  { num: `${citingCount}`, lbl: "Citing papers" },
+];
+
+const bibtex = `@article{stewart2022torchgeo,
+  title   = {TorchGeo: Deep Learning With Geospatial Data},
+  author  = {Stewart, Adam J. and Robinson, Caleb and Corley, Isaac A.
+             and Ortiz, Anthony and Lavista Ferres, Juan M. and Banerjee, Arindam},
+  journal = {Proceedings of the 30th International Conference on
+             Advances in Geographic Information Systems},
+  year    = {2022},
+  doi     = {10.1145/3557915.3560953}
+}`;
+
 function ArrowUpRightIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
@@ -198,6 +304,14 @@ function YouTubeIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+function HeartIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" {...props}>
+      <path d="M8 14.5s-5.5-3.4-5.5-7.5A3.2 3.2 0 0 1 5.7 3.8c1 0 1.8.5 2.3 1.3.5-.8 1.3-1.3 2.3-1.3a3.2 3.2 0 0 1 3.2 3.2c0 4.1-5.5 7.5-5.5 7.5z" />
+    </svg>
+  );
+}
+
 export default function Home() {
   return (
     <>
@@ -228,10 +342,10 @@ export default function Home() {
             >
               <GitHubIcon />
             </a>
-            <a
-              className="btn btn--primary"
-              href="https://torchgeo.readthedocs.io/en/stable/tutorials/getting_started.html"
-            >
+            <a className="btn btn--ghost btn--sponsor" href={SPONSOR_URL}>
+              <HeartIcon className="heart" /> Sponsor
+            </a>
+            <a className="btn btn--primary" href={GET_STARTED_URL}>
               Get started
               <ArrowUpRightIcon className="arrow" />
             </a>
@@ -260,26 +374,35 @@ export default function Home() {
             </p>
 
             <div className="hero__actions">
-              <a
-                className="btn btn--orange"
-                href="https://torchgeo.readthedocs.io/en/stable/tutorials/getting_started.html"
-              >
-                Read the guide
+              <a className="btn btn--orange" href={GET_STARTED_URL}>
+                Get started
                 <ArrowUpRightIcon className="arrow" />
               </a>
               <a
                 className="btn btn--ghost"
                 href="https://github.com/torchgeo/torchgeo"
               >
-                View on GitHub
+                <GitHubIcon className="btn__icon" />
+                4,000+ on GitHub
+                <ArrowUpRightIcon className="arrow" />
               </a>
               <a
                 className="btn btn--ghost"
                 href="https://arxiv.org/abs/2111.08872"
               >
                 Read the paper
+                <ArrowUpRightIcon className="arrow" />
               </a>
             </div>
+
+            <dl className="hero__meta">
+              {heroStats.map((s) => (
+                <div className="hero__meta-item" key={s.lbl}>
+                  <dt className="num">{s.num}</dt>
+                  <dd className="lbl">{s.lbl}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
 
           <div className="hero__visual">
@@ -314,23 +437,43 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Stewarded-by strip — high-signal sponsor cue, near the top. */}
+      <section className="stewards" aria-labelledby="stewards-label">
+        <div className="shell stewards__inner">
+          <span id="stewards-label" className="stewards__label">
+            Stewarded by
+          </span>
+          <div className="stewards__row">
+            {members.map((p) => (
+              <a
+                key={p.alt}
+                className="stewards__logo"
+                href="#sponsors"
+                aria-label={p.name}
+                title={p.name}
+                data-name={p.name.toLowerCase().replace(/\s+/g, "-")}
+              >
+                {/* biome-ignore lint/performance/noImgElement: SVG asset */}
+                <img src={p.light} alt={p.alt} />
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="section" id="quickstart">
         <div className="shell">
-          <div className="section__head">
-            <div>
-              <span className="kicker">Three tasks · ten lines</span>
-              <h2 className="section-title">
-                A complete pipeline, from a fresh interpreter.
-              </h2>
-            </div>
-            <div className="section__head-right">
-              <p className="section-lead">
-                Every TorchGeo dataset returns a dictionary of tensors. Every
-                sampler yields geographic windows. Every model accepts arbitrary
-                band counts. The same loop trains classification, segmentation,
-                and detection.
-              </p>
-            </div>
+          <div className="section__head section__head--stacked">
+            <span className="kicker">Three tasks · ten lines</span>
+            <h2 className="section-title">
+              Same loop, three tasks. From a fresh interpreter.
+            </h2>
+            <p className="section-lead">
+              Every TorchGeo dataset returns a dictionary of tensors. Every
+              sampler yields geographic windows. Every model accepts arbitrary
+              band counts. The same loop trains classification, segmentation,
+              and detection.
+            </p>
           </div>
           <CodeTabs />
         </div>
@@ -338,21 +481,17 @@ export default function Home() {
 
       <section className="section" id="api">
         <div className="shell">
-          <div className="section__head">
-            <div>
-              <span className="kicker">Library surface</span>
-              <h2 className="section-title">
-                Six modules. Standard PyTorch on either side.
-              </h2>
-            </div>
-            <div className="section__head-right">
-              <p className="section-lead">
-                Each module composes with the rest. A dataset feeds a sampler; a
-                sampler feeds a dataloader; a model trains on the dataloader.
-                The boundaries match torchvision's — read its docs and you
-                already half-know TorchGeo.
-              </p>
-            </div>
+          <div className="section__head section__head--stacked">
+            <span className="kicker">Library surface</span>
+            <h2 className="section-title">
+              Six modules. Standard PyTorch on either side.
+            </h2>
+            <p className="section-lead">
+              Each module composes with the rest. A dataset feeds a sampler; a
+              sampler feeds a dataloader; a model trains on the dataloader. The
+              boundaries match torchvision's — read its docs and you already
+              half-know TorchGeo.
+            </p>
           </div>
 
           <div className="surface-grid">
@@ -375,21 +514,16 @@ export default function Home() {
 
       <section className="section" id="datasets">
         <div className="shell">
-          <div className="section__head">
-            <div>
-              <span className="kicker">Featured datasets</span>
-              <h2 className="section-title">
-                Real imagery, not curated thumbnails.
-              </h2>
-            </div>
-            <div className="section__head-right">
-              <p className="section-lead">
-                A sample of what ships in <code>torchgeo.datasets</code> — Inria
-                Aerial Image Labeling, NWPU VHR-10, and a hundred more. Hover
-                the building footprints to reveal the mask; drag the slider on
-                Inria to compare imagery and ground truth.
-              </p>
-            </div>
+          <div className="section__head section__head--stacked">
+            <span className="kicker">Featured datasets</span>
+            <h2 className="section-title">
+              Real imagery, not curated thumbnails.
+            </h2>
+            <p className="section-lead">
+              A sample of what ships in <code>torchgeo.datasets</code> — Inria
+              Aerial Image Labeling, NWPU VHR-10, and a hundred more. Drag the
+              slider on Inria to compare imagery and ground truth.
+            </p>
           </div>
 
           <div className="datasets">
@@ -409,28 +543,20 @@ export default function Home() {
               <Image
                 className="dataset__a"
                 src="/brand/vhr10.png"
-                alt="VHR-10 base aerial imagery"
-                fill
-                sizes="(max-width: 900px) 100vw, 33vw"
-                unoptimized
-              />
-              <Image
-                className="dataset__b"
-                src="/brand/vhr10.png"
-                alt="VHR-10 with detection overlays"
+                alt="NWPU VHR-10 detection sample"
                 fill
                 sizes="(max-width: 900px) 100vw, 33vw"
                 unoptimized
               />
               <div className="dataset__corner">
-                <span className="d-dot" /> VHR-10 · hover to reveal
+                <span className="d-dot" /> VHR-10 · object detection
               </div>
               <div className="dataset__caption">
                 <div>
                   <h4>NWPU VHR-10</h4>
                   <p>Mask R-CNN · 10 classes · 800 scenes</p>
                 </div>
-                <span className="dataset__hint">Object detection</span>
+                <span className="dataset__hint">Detection</span>
               </div>
             </div>
 
@@ -462,21 +588,17 @@ export default function Home() {
 
       <section className="section" id="models">
         <div className="shell">
-          <div className="section__head">
-            <div>
-              <span className="kicker">Pretrained weights</span>
-              <h2 className="section-title">
-                Foundation models for satellite imagery.
-              </h2>
-            </div>
-            <div className="section__head-right">
-              <p className="section-lead">
-                Drop-in replacements for ImageNet weights, trained on
-                multispectral, SAR, and hyperspectral inputs. Each one ships
-                with the dataset it was trained on, the spectral bands it
-                expects, and a one-line constructor.
-              </p>
-            </div>
+          <div className="section__head section__head--stacked">
+            <span className="kicker">Pretrained weights</span>
+            <h2 className="section-title">
+              Foundation models for satellite imagery.
+            </h2>
+            <p className="section-lead">
+              Drop-in replacements for ImageNet weights, trained on
+              multispectral, SAR, and hyperspectral inputs. Each ships with the
+              dataset it was trained on, the spectral bands it expects, and a
+              one-line constructor.
+            </p>
           </div>
 
           <div className="models">
@@ -498,7 +620,7 @@ export default function Home() {
             ))}
           </div>
 
-          <div style={{ textAlign: "center", marginTop: "2rem" }}>
+          <div className="section__cta">
             <a
               className="btn btn--ghost"
               href="https://torchgeo.readthedocs.io/en/stable/api/models.html"
@@ -510,55 +632,146 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Citations / research adoption. Sourced from public/data/torchgeo_citations.json */}
+      <section className="research" id="research">
+        <div className="shell">
+          <div className="section__head section__head--stacked research__head">
+            <span className="kicker kicker--mint">Research adoption</span>
+            <h2 className="section-title">
+              Cited by <em className="research__num">{citingCount}+ papers</em>{" "}
+              across the field.
+            </h2>
+            <p className="section-lead">
+              From the foundation paper to {yearSpan}, the TorchGeo stack has
+              underpinned deep-learning work on EO at major ML and remote-
+              sensing venues — together accumulating{" "}
+              {downstreamCitations.toLocaleString()}+ downstream citations.
+            </p>
+          </div>
+
+          <div className="research__grid">
+            <div className="research__col">
+              <h4 className="research__h">Top venues</h4>
+              <ul className="research__venues">
+                {topVenues.map((v) => (
+                  <li key={v.name}>
+                    <span className="research__venue-n">{v.n}</span>
+                    <span className="research__venue-name">
+                      {v.name
+                        .replace(/^IEEE Journal of .*$/, "IEEE JSTARS")
+                        .replace(
+                          /Neural Information Processing Systems/,
+                          "NeurIPS",
+                        )
+                        .replace(
+                          /^2024 IEEE.*Pattern Recognition Workshops.*$/,
+                          "CVPR Workshops",
+                        )
+                        .replace(
+                          /^The Journal of Open Source Software$/,
+                          "JOSS",
+                        )}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="research__col">
+              <h4 className="research__h">Where the work happens</h4>
+              <div className="research__insts">
+                {topInstitutions.map((i) => (
+                  <span key={i} className="research__inst">
+                    {i}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="research__cta">
+            <a
+              className="btn btn--ghost"
+              href="https://scholar.google.com/scholar?cites=12376927840983425574"
+            >
+              See all citing work on Google Scholar
+              <ArrowUpRightIcon className="arrow" />
+            </a>
+          </div>
+        </div>
+      </section>
+
       <section className="section" id="community">
         <div className="shell">
-          <div className="section__head">
-            <div>
-              <span className="kicker">Talks &amp; tutorials</span>
-              <h2 className="section-title">From the community.</h2>
-            </div>
-            <div className="section__head-right">
-              <p className="section-lead">
-                Conference talks, podcast episodes, and end-to-end tutorials
-                from the TorchGeo community. Click any tile to watch on YouTube.
-              </p>
-            </div>
+          <div className="section__head section__head--stacked">
+            <span className="kicker">Talks &amp; tutorials</span>
+            <h2 className="section-title">From the community.</h2>
+            <p className="section-lead">
+              Conference talks, podcast episodes, and end-to-end tutorials from
+              the TorchGeo community. Click any tile to watch on YouTube.
+            </p>
           </div>
           <VideoCarousel videos={videos} autoPlay />
         </div>
       </section>
 
-      <section className="partners" id="partners">
-        <div className="shell partners__inner">
-          <div className="partners__copy">
-            <span className="kicker" style={{ color: "var(--mask-mint)" }}>
+      <section className="sponsors" id="sponsors">
+        <div className="shell sponsors__inner">
+          <div className="sponsors__copy">
+            <span className="kicker kicker--mint">
               The TorchGeo Organization
             </span>
             <h3>
-              An independent, self-governing project — stewarded by five member
-              organizations.
+              Stewarded by Microsoft AI for Good, IBM Research, TU Munich,
+              Taylor Geospatial Institute, and Space42.
             </h3>
             <p>
-              TorchGeo started as an internship project at the Microsoft AI for
-              Good Lab in 2021. It has since grown into a multi-org
-              collaboration with contributors across academia, industry, and
-              government.
+              TorchGeo started as a 2021 internship at Microsoft AI for Good. It
+              now operates as an independent, self-governing project with
+              contributors across academia, industry, and government — and is an
+              OSGeo Community Project.
             </p>
-            <a
-              className="btn btn--inverse"
-              href="https://github.com/torchgeo/torchgeo/blob/main/GOVERNANCE.md"
-            >
-              Read the charter
-              <ArrowUpRightIcon className="arrow" />
-            </a>
+            <div className="sponsors__actions">
+              <a className="btn btn--orange" href={SPONSOR_URL}>
+                <HeartIcon className="heart" /> Sponsor TorchGeo
+                <ArrowUpRightIcon className="arrow" />
+              </a>
+              <a
+                className="btn btn--inverse"
+                href="https://github.com/torchgeo/torchgeo/blob/main/GOVERNANCE.md"
+              >
+                Read the charter
+                <ArrowUpRightIcon className="arrow" />
+              </a>
+            </div>
           </div>
-          <div className="partners__grid">
-            {partners.map((p) => (
-              <div key={p.src} className="partner">
-                {/* biome-ignore lint/performance/noImgElement: SVG asset, no need for next/image */}
-                <img src={p.src} alt={p.alt} />
+          <div className="sponsors__grid">
+            {members.map((p) => (
+              <div key={p.alt} className="sponsors__cell">
+                {/* biome-ignore lint/performance/noImgElement: SVG asset */}
+                <img
+                  src={p.dark}
+                  alt={p.alt}
+                  data-name={p.name.toLowerCase().replace(/\s+/g, "-")}
+                />
+                <span className="sponsors__role">{p.role}</span>
               </div>
             ))}
+          </div>
+
+          <div className="sponsors__pitch">
+            <div className="sponsors__pitch-copy">
+              <h4>Help keep open infrastructure for geospatial ML alive.</h4>
+              <p>
+                TorchGeo is MIT-licensed and free to use. Sponsorships fund core
+                maintainer time, model checkpoints, dataset hosting, and
+                conference workshops. Tiers and benefits live on GitHub
+                Sponsors.
+              </p>
+            </div>
+            <a className="btn btn--orange btn--lg" href={SPONSOR_URL}>
+              <HeartIcon className="heart" /> Become a sponsor
+              <ArrowUpRightIcon className="arrow" />
+            </a>
           </div>
         </div>
       </section>
@@ -575,9 +788,24 @@ export default function Home() {
                 unoptimized
               />
               <p>
-                A PyTorch domain library for geospatial deep learning.
-                MIT-licensed. Built in the open.
+                A PyTorch domain library for geospatial deep learning. MIT
+                licensed. OSGeo Community Project. Built in the open.
               </p>
+              <div className="footer__cite">
+                <div className="footer__cite-head">
+                  <span className="eyebrow">Cite TorchGeo</span>
+                  <a
+                    className="footer__cite-link"
+                    href="https://arxiv.org/abs/2111.08872"
+                  >
+                    arXiv:2111.08872
+                    <ArrowUpRightIcon className="arrow" />
+                  </a>
+                </div>
+                <pre className="footer__bibtex">
+                  <code>{bibtex}</code>
+                </pre>
+              </div>
             </div>
             <div className="footer__col">
               <h5>Project</h5>
@@ -594,14 +822,14 @@ export default function Home() {
                 <li>
                   <a href="https://huggingface.co/torchgeo">Hugging Face</a>
                 </li>
+                <li>
+                  <a href="https://www.osgeo.org/projects/torchgeo/">OSGeo</a>
+                </li>
               </ul>
             </div>
             <div className="footer__col">
               <h5>Community</h5>
               <ul>
-                <li>
-                  <a href="https://www.youtube.com/@TorchGeo">YouTube</a>
-                </li>
                 <li>
                   <a href="https://github.com/torchgeo/torchgeo/discussions">
                     Discussions
@@ -612,16 +840,29 @@ export default function Home() {
                     Contribute
                   </a>
                 </li>
+                <li>
+                  <a href="https://www.youtube.com/@TorchGeo">YouTube</a>
+                </li>
+                <li>
+                  <a href="https://github.com/torchgeo/torchgeo/blob/main/CODE_OF_CONDUCT.md">
+                    Code of Conduct
+                  </a>
+                </li>
               </ul>
             </div>
             <div className="footer__col">
-              <h5>Cite</h5>
+              <h5>Sponsor</h5>
               <ul>
                 <li>
-                  <a href="https://arxiv.org/abs/2111.08872">arXiv paper</a>
+                  <a href={SPONSOR_URL}>GitHub Sponsors</a>
                 </li>
                 <li>
-                  <a href="https://www.osgeo.org/projects/torchgeo/">OSGeo</a>
+                  <a href="https://github.com/torchgeo/torchgeo/blob/main/GOVERNANCE.md">
+                    Governance
+                  </a>
+                </li>
+                <li>
+                  <a href="mailto:torchgeo@googlegroups.com">Get in touch</a>
                 </li>
               </ul>
             </div>
@@ -644,6 +885,13 @@ export default function Home() {
                 aria-label="YouTube"
               >
                 <YouTubeIcon />
+              </a>
+              <a
+                className="icon-btn"
+                href={SPONSOR_URL}
+                aria-label="Sponsor TorchGeo"
+              >
+                <HeartIcon />
               </a>
             </div>
           </div>
