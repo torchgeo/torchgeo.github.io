@@ -227,14 +227,25 @@ const topVenues = Array.from(venueCounts.entries())
   .sort((a, b) => b[1] - a[1])
   .slice(0, 6)
   .map(([name, n]) => ({ name, n }));
-// Top institutions by paper-count, taking the first comma-segment as the
-// canonical institution name and de-duping per paper.
+// Top institutions by paper-count. Drops sub-unit affiliations (departments,
+// schools, labs) so only the host org names surface, normalizes punctuation
+// noise, and de-dupes per paper.
+const SUB_UNIT_RE =
+  /^(department|school|chair|laboratoire|laboratory|faculty|institute of|center for|centre for|college of|division of)\b/i;
+const normalizeInst = (raw: string) =>
+  raw
+    .replace(/\s*\([^)]*\)\s*$/, "")
+    .replace(/\bK\.?\s*N\.?\s*Toosi\b/i, "K. N. Toosi")
+    .replace(/\s+/g, " ")
+    .trim();
 const instCounts = new Map<string, number>();
 for (const p of citingPapers) {
   const seen = new Set<string>();
   for (const a of p.authors ?? []) {
     for (const af of a.affiliations ?? []) {
-      const inst = af.split(",")[0].trim();
+      const head = af.split(",")[0];
+      if (!head || SUB_UNIT_RE.test(head.trim())) continue;
+      const inst = normalizeInst(head);
       if (!inst || seen.has(inst)) continue;
       seen.add(inst);
       instCounts.set(inst, (instCounts.get(inst) ?? 0) + 1);
@@ -243,7 +254,7 @@ for (const p of citingPapers) {
 }
 const topInstitutions = Array.from(instCounts.entries())
   .sort((a, b) => b[1] - a[1])
-  .slice(0, 14)
+  .slice(0, 20)
   .map(([name]) => name);
 
 const yearSpan = (() => {
