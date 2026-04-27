@@ -1,19 +1,13 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter_Tight, JetBrains_Mono } from "next/font/google";
+import { Inter_Tight, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-display",
-  style: ["normal", "italic"],
-  display: "swap",
-  axes: ["opsz", "SOFT"],
-});
-
+// Single sans family for both display and body — keeps the page reading
+// like a scientific PyTorch library, not marketing copy.
 const interTight = Inter_Tight({
   subsets: ["latin"],
   variable: "--font-body",
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -37,9 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${fraunces.variable} ${interTight.variable} ${jetbrainsMono.variable}`}
-      >
+      <body className={`${interTight.variable} ${jetbrainsMono.variable}`}>
         {children}
       </body>
     </html>

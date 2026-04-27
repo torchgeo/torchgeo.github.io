@@ -36,12 +36,9 @@ const logoOk = await page.locator(".topbar__brand img").evaluate((el) => {
 });
 log("topbar logo loaded", logoOk);
 
-// 3. Hero asset renders the real Landsat composite
-const heroImg = await page.locator(".hero-asset__img").evaluate((el) => {
-  const img = /** @type {HTMLImageElement} */ (el);
-  return img.complete && img.naturalWidth > 0;
-});
-log("hero asset image loaded", heroImg);
+// 3. Hero asset renders the abstract gradient mosaic (24 tiles).
+const tileCount = await page.locator(".hero-asset__tile").count();
+log("hero asset has 24 tiles", tileCount === 24, `count=${tileCount}`);
 
 // 4. Hero sampler tag rotates through label states
 const tag = page.locator(".hero-asset__sampler-tag");
@@ -81,31 +78,9 @@ log(
 await page.locator(".tabs .tab", { hasText: "classification" }).click();
 await page.waitForTimeout(150);
 
-// 6. Compare slider drags and clipPath updates
-const compare = page.locator(".compare").first();
-await compare.scrollIntoViewIfNeeded();
-const layerBefore = await page
-  .locator(".compare__layer")
-  .first()
-  .evaluate((el) => el.style.clipPath);
-const box = await compare.boundingBox();
-if (!box) throw new Error("no compare bbox");
-await page.mouse.move(box.x + box.width * 0.2, box.y + box.height / 2);
-await page.mouse.down();
-await page.mouse.move(box.x + box.width * 0.8, box.y + box.height / 2, {
-  steps: 12,
-});
-await page.mouse.up();
-await page.waitForTimeout(120);
-const layerAfter = await page
-  .locator(".compare__layer")
-  .first()
-  .evaluate((el) => el.style.clipPath);
-log(
-  "compare slider responds to drag",
-  layerBefore !== layerAfter,
-  `${layerBefore} → ${layerAfter}`,
-);
+// 6. Datasets gallery renders three tiles (Inria, VHR-10, browse-all)
+const datasetCount = await page.locator(".dataset").count();
+log("datasets grid has 3 tiles", datasetCount === 3, `count=${datasetCount}`);
 
 // 7. Surface grid links — count + sample href
 const surfaceCount = await page.locator(".surface-card").count();
@@ -115,14 +90,13 @@ log("surface grid has 6 cards", surfaceCount === 6, `count=${surfaceCount}`);
 const modelCount = await page.locator(".model").count();
 log("models grid has 6 entries", modelCount === 6, `count=${modelCount}`);
 
-// 9. Video carousel — clicking next advances scrollLeft
+// 9. Video carousel auto-scrolls (RAF drift) without manual buttons.
 const carouselTrack = page.locator(".carousel-track").first();
 await carouselTrack.scrollIntoViewIfNeeded();
 const sl1 = await carouselTrack.evaluate((el) => el.scrollLeft);
-await page.locator(".carousel-next").first().click();
-await page.waitForTimeout(450);
+await page.waitForTimeout(900);
 const sl2 = await carouselTrack.evaluate((el) => el.scrollLeft);
-log("video carousel advances", sl1 !== sl2, `scrollLeft ${sl1} → ${sl2}`);
+log("video carousel auto-scrolls", sl2 > sl1, `scrollLeft ${sl1} → ${sl2}`);
 
 // 10. Member-org logos load (sponsors section, dark variants)
 const partnerSrcs = await page
@@ -162,16 +136,11 @@ log(
 const statCount = await page.locator(".hero__meta-item").count();
 log("hero stats row has 4 items", statCount === 4, `count=${statCount}`);
 
-// 10d. Citations section renders venues + institutions
-const venueCount = await page.locator(".research__venues li").count();
+// 10d. Citations section renders institution chips
 const instCount = await page.locator(".research__inst").count();
-log(
-  "research section populated",
-  venueCount > 0 && instCount > 0,
-  `venues=${venueCount} insts=${instCount}`,
-);
+log("research section populated", instCount >= 10, `insts=${instCount}`);
 
-// 10e. Sponsor CTAs link to GitHub Sponsors
+// 10e. Sponsor CTAs link to GitHub Sponsors (navbar + section + footer ≥ 3)
 const sponsorHrefs = await page
   .locator("a[href*='github.com/sponsors/torchgeo']")
   .evaluateAll((els) => els.length);

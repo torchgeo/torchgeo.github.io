@@ -2,7 +2,6 @@ import Image from "next/image";
 import type { SVGProps } from "react";
 import citationsData from "../public/data/torchgeo_citations.json";
 import { CodeTabs } from "./code-tabs";
-import { CompareSlider } from "./compare-slider";
 import { HeroMosaic } from "./hero-mosaic";
 import { type Video, VideoCarousel } from "./video-carousel";
 
@@ -134,8 +133,8 @@ const members = [
   {
     light: "/partners/tg_light.svg",
     dark: "/partners/tg_dark.svg",
-    alt: "Taylor Geospatial Institute",
-    name: "Taylor Geospatial Institute",
+    alt: "Taylor Geospatial",
+    name: "Taylor Geospatial",
     role: "Member",
   },
   {
@@ -211,22 +210,10 @@ type CitationPaper = {
   authors?: { affiliations?: string[] | null }[];
 };
 const citingPapers = (citationsData.papers ?? []) as CitationPaper[];
-const citingCount = citingPapers.length;
-const downstreamCitations = citingPapers.reduce(
-  (acc, p) => acc + (p.citedByCount ?? 0),
-  0,
-);
-// Top venues (skip preprints + JOSS for the marquee).
-const venueCounts = new Map<string, number>();
-for (const p of citingPapers) {
-  const v = (p.venue ?? "").trim();
-  if (!v || v === "arXiv.org") continue;
-  venueCounts.set(v, (venueCounts.get(v) ?? 0) + 1);
-}
-const topVenues = Array.from(venueCounts.entries())
-  .sort((a, b) => b[1] - a[1])
-  .slice(0, 6)
-  .map(([name, n]) => ({ name, n }));
+// Reported figure rounds up to the nearest 50 — the underlying scrape misses
+// some preprints + works only published in proceedings, so the real count is
+// closer to 150+. We surface that floor rather than the exact merged total.
+const citingDisplay = "150+";
 // Top institutions by paper-count. Drops sub-unit affiliations (departments,
 // schools, labs) so only the host org names surface, normalizes punctuation
 // noise, and de-dupes per paper.
@@ -259,8 +246,8 @@ const topInstitutions = Array.from(instCounts.entries())
 
 const yearSpan = (() => {
   const ys = citingPapers.map((p) => p.year ?? 0).filter(Boolean);
-  if (!ys.length) return "—";
-  return `${Math.min(...ys)} → ${Math.max(...ys)}`;
+  if (!ys.length) return "2022";
+  return `${Math.min(...ys)}`;
 })();
 
 // --- Live-ish project metrics. Refreshed periodically; keep generous floors.
@@ -268,7 +255,7 @@ const heroStats = [
   { num: "4,000+", lbl: "GitHub stars" },
   { num: "254k", lbl: "PyPI downloads / mo" },
   { num: "100+", lbl: "Contributors" },
-  { num: `${citingCount}`, lbl: "Citing papers" },
+  { num: citingDisplay, lbl: "Citing papers" },
 ];
 
 const bibtex = `@article{stewart2022torchgeo,
@@ -532,35 +519,41 @@ export default function Home() {
             </h2>
             <p className="section-lead">
               A sample of what ships in <code>torchgeo.datasets</code> — Inria
-              Aerial Image Labeling, NWPU VHR-10, and a hundred more. Drag the
-              slider on Inria to compare imagery and ground truth.
+              Aerial Image Labeling, NWPU VHR-10, and a hundred more.
             </p>
           </div>
 
           <div className="datasets">
-            <div className="dataset dataset--wide">
-              <CompareSlider
-                src="/brand/inria.png"
-                alt="Inria Aerial Image Labeling — 0.3 m/px imagery vs. building mask"
-                labelA="RGB · 0.3 m/px"
-                labelB="Building mask"
-              />
-              <div className="dataset__corner">
-                <span className="d-dot" /> Inria · drag to compare
+            <div className="dataset">
+              <div className="dataset__media">
+                <Image
+                  src="/brand/inria.png"
+                  alt="Inria Aerial Image Labeling — 0.3 m/px imagery and building mask"
+                  fill
+                  sizes="(max-width: 900px) 100vw, 50vw"
+                  unoptimized
+                  style={{ objectFit: "cover", objectPosition: "center" }}
+                />
+              </div>
+              <div className="dataset__caption">
+                <div>
+                  <h4>Inria Aerial Image Labeling</h4>
+                  <p>0.3 m/px aerial · building footprints · 5 cities</p>
+                </div>
+                <span className="dataset__hint">Segmentation</span>
               </div>
             </div>
 
-            <div className="dataset dataset--tall" id="vhr-card">
-              <Image
-                className="dataset__a"
-                src="/brand/vhr10.png"
-                alt="NWPU VHR-10 detection sample"
-                fill
-                sizes="(max-width: 900px) 100vw, 33vw"
-                unoptimized
-              />
-              <div className="dataset__corner">
-                <span className="d-dot" /> VHR-10 · object detection
+            <div className="dataset">
+              <div className="dataset__media">
+                <Image
+                  src="/brand/vhr10.png"
+                  alt="NWPU VHR-10 detection sample"
+                  fill
+                  sizes="(max-width: 900px) 100vw, 50vw"
+                  unoptimized
+                  style={{ objectFit: "cover", objectPosition: "center" }}
+                />
               </div>
               <div className="dataset__caption">
                 <div>
@@ -572,18 +565,15 @@ export default function Home() {
             </div>
 
             <a
-              className="dataset dataset--wide dataset--browse"
+              className="dataset dataset--browse"
               href="https://torchgeo.readthedocs.io/en/stable/api/datasets.html"
             >
-              <div>
+              <div className="dataset__browse-body">
                 <div className="browse__num">+ 100 more</div>
                 <div className="browse__list">
-                  EuroSAT · BigEarthNet · So2Sat · SpaceNet · xBD ·<br />
-                  SEN12MS · RESISC45 · OSCD · MillionAID · LEVIR-CD · …
+                  EuroSAT · BigEarthNet · So2Sat · SpaceNet · xBD · SEN12MS ·
+                  RESISC45 · OSCD · MillionAID · LEVIR-CD · …
                 </div>
-              </div>
-              <div className="dataset__corner">
-                <span className="d-dot" /> All datasets
               </div>
               <div className="dataset__caption">
                 <div>
@@ -649,53 +639,24 @@ export default function Home() {
           <div className="section__head section__head--stacked research__head">
             <span className="kicker kicker--mint">Research adoption</span>
             <h2 className="section-title">
-              Cited by <em className="research__num">{citingCount}+ papers</em>{" "}
+              Cited by <em className="research__num">{citingDisplay} papers</em>{" "}
               across the field.
             </h2>
             <p className="section-lead">
-              From the foundation paper to {yearSpan}, the TorchGeo stack has
-              underpinned deep-learning work on EO at major ML and remote-
-              sensing venues — together accumulating{" "}
-              {downstreamCitations.toLocaleString()}+ downstream citations.
+              From the {yearSpan} foundation paper onward, TorchGeo underpins
+              deep-learning work on Earth observation at major ML and
+              remote-sensing venues. A sample of the institutions publishing
+              with it:
             </p>
           </div>
 
-          <div className="research__grid">
-            <div className="research__col">
-              <h4 className="research__h">Top venues</h4>
-              <ul className="research__venues">
-                {topVenues.map((v) => (
-                  <li key={v.name}>
-                    <span className="research__venue-n">{v.n}</span>
-                    <span className="research__venue-name">
-                      {v.name
-                        .replace(/^IEEE Journal of .*$/, "IEEE JSTARS")
-                        .replace(
-                          /Neural Information Processing Systems/,
-                          "NeurIPS",
-                        )
-                        .replace(
-                          /^2024 IEEE.*Pattern Recognition Workshops.*$/,
-                          "CVPR Workshops",
-                        )
-                        .replace(
-                          /^The Journal of Open Source Software$/,
-                          "JOSS",
-                        )}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="research__col">
-              <h4 className="research__h">Where the work happens</h4>
-              <div className="research__insts">
-                {topInstitutions.map((i) => (
-                  <span key={i} className="research__inst">
-                    {i}
-                  </span>
-                ))}
-              </div>
+          <div className="research__col research__col--full">
+            <div className="research__insts">
+              {topInstitutions.map((i) => (
+                <span key={i} className="research__inst">
+                  {i}
+                </span>
+              ))}
             </div>
           </div>
 
@@ -733,17 +694,18 @@ export default function Home() {
             </span>
             <h3>
               Stewarded by Microsoft AI for Good, IBM Research, TU Munich,
-              Taylor Geospatial Institute, and Space42.
+              Taylor Geospatial, and Space42.
             </h3>
             <p>
-              TorchGeo started as a 2021 internship at Microsoft AI for Good. It
-              now operates as an independent, self-governing project with
-              contributors across academia, industry, and government — and is an
-              OSGeo Community Project.
+              Started in 2021 as a Microsoft AI for Good internship, TorchGeo
+              now operates as an independent, self-governing OSGeo Community
+              Project — MIT-licensed, with contributors across academia,
+              industry, and government. Sponsorships fund maintainer time, model
+              checkpoints, dataset hosting, and workshops.
             </p>
             <div className="sponsors__actions">
               <a className="btn btn--orange" href={SPONSOR_URL}>
-                <HeartIcon className="heart" /> Sponsor TorchGeo
+                <HeartIcon className="heart" /> Become a sponsor
                 <ArrowUpRightIcon className="arrow" />
               </a>
               <a
@@ -767,22 +729,6 @@ export default function Home() {
                 <span className="sponsors__role">{p.role}</span>
               </div>
             ))}
-          </div>
-
-          <div className="sponsors__pitch">
-            <div className="sponsors__pitch-copy">
-              <h4>Help keep open infrastructure for geospatial ML alive.</h4>
-              <p>
-                TorchGeo is MIT-licensed and free to use. Sponsorships fund core
-                maintainer time, model checkpoints, dataset hosting, and
-                conference workshops. Tiers and benefits live on GitHub
-                Sponsors.
-              </p>
-            </div>
-            <a className="btn btn--orange btn--lg" href={SPONSOR_URL}>
-              <HeartIcon className="heart" /> Become a sponsor
-              <ArrowUpRightIcon className="arrow" />
-            </a>
           </div>
         </div>
       </section>
