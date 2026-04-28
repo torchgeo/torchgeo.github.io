@@ -1,31 +1,27 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, IBM_Plex_Sans, Source_Serif_4 } from "next/font/google";
+import { Inter_Tight, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const sourceSerif = Source_Serif_4({
+// Single sans family for both display and body — keeps the page reading
+// like a scientific PyTorch library, not marketing copy.
+const interTight = Inter_Tight({
   subsets: ["latin"],
-  variable: "--font-display",
+  variable: "--font-body",
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
-const ibmPlexSans = IBM_Plex_Sans({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
-  variable: "--font-body",
-  display: "swap",
-});
-
-const ibmPlexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
   variable: "--font-mono",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "TorchGeo | Geospatial Deep Learning for PyTorch",
+  title: "TorchGeo · Geospatial deep learning for PyTorch",
   description:
-    "TorchGeo is a PyTorch domain library for satellite and aerial imagery, with datasets, samplers, transforms, and pretrained models for geospatial machine learning.",
+    "TorchGeo is a PyTorch domain library for satellite and aerial imagery — datasets, samplers, transforms, and pretrained models for geospatial machine learning.",
 };
 
 export default function RootLayout({
@@ -35,9 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${sourceSerif.variable} ${ibmPlexSans.variable} ${ibmPlexMono.variable}`}
-      >
+      <body className={`${interTight.variable} ${jetbrainsMono.variable}`}>
         {children}
       </body>
     </html>

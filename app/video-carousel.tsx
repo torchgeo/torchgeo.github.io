@@ -78,20 +78,6 @@ export function VideoCarousel({
     return () => cancelAnimationFrame(raf);
   }, [autoPlay, speed]);
 
-  // Advance one card at a time with the manual arrows. Updates the shared
-  // offset so the RAF loop picks up from there on the next frame.
-  const step = (dir: -1 | 1) => {
-    const el = trackRef.current;
-    if (!el) return;
-    const card = el.querySelector<HTMLElement>(".video-card");
-    if (!card) return;
-    const gap = parseFloat(getComputedStyle(el).columnGap || "0") || 12;
-    const cardWidth = card.getBoundingClientRect().width + gap;
-    const half = el.scrollWidth / 2 || el.scrollWidth;
-    offsetRef.current = wrap(offsetRef.current + cardWidth * dir, half);
-    el.scrollLeft = offsetRef.current;
-  };
-
   return (
     <section
       className={autoPlay ? "carousel carousel--loop" : "carousel"}
@@ -103,43 +89,6 @@ export function VideoCarousel({
           <VideoCard key={i < videos.length ? v.id : `${v.id}-dup`} video={v} />
         ))}
       </div>
-
-      <button
-        type="button"
-        className="carousel-btn carousel-prev"
-        onClick={() => step(-1)}
-        aria-label="Previous video"
-      >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          role="presentation"
-        >
-          <path d="M15 18l-6-6 6-6" />
-        </svg>
-      </button>
-      <button
-        type="button"
-        className="carousel-btn carousel-next"
-        onClick={() => step(1)}
-        aria-label="Next video"
-      >
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          role="presentation"
-        >
-          <path d="M9 18l6-6-6-6" />
-        </svg>
-      </button>
     </section>
   );
 }
