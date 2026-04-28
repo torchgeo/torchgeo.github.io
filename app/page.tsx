@@ -423,8 +423,8 @@ export default function Home() {
               <span className="install__chip">
                 <span className="dot" /> MIT licensed
               </span>
-              <span className="install__chip">Python 3.11+</span>
-              <span className="install__chip">PyTorch 2.4+</span>
+              <span className="install__chip">Python 3.12+</span>
+              <span className="install__chip">PyTorch 2.2+</span>
               <span className="install__chip">
                 <a
                   href="https://www.osgeo.org/projects/torchgeo/"
