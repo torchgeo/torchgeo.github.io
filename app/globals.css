@@ -351,7 +351,7 @@ button {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr);
   gap: clamp(1.5rem, 3vw, 3rem);
-  padding: clamp(1.6rem, 3.6vw, 2.75rem) 0 clamp(1.6rem, 3.6vw, 2.5rem);
+  padding: clamp(1.25rem, 2.6vw, 2rem) 0 clamp(0.75rem, 1.5vw, 1.25rem);
   align-items: center;
 }
 
@@ -608,15 +608,15 @@ button {
 
 /* ===== Section primitives ===== */
 .section {
-  padding: clamp(3rem, 5vw, 4.75rem) 0;
+  padding: clamp(2rem, 3.5vw, 3.25rem) 0;
   border-top: 1px solid var(--line);
 }
 .section--tight {
-  padding: clamp(2.5rem, 4vw, 4rem) 0;
+  padding: clamp(1.5rem, 2.8vw, 2.5rem) 0;
 }
 
 .section__head {
-  margin-bottom: clamp(1.75rem, 3vw, 2.75rem);
+  margin-bottom: clamp(1rem, 1.8vw, 1.5rem);
 }
 .section__head--stacked {
   display: block;
@@ -630,18 +630,17 @@ button {
   margin-top: 2.25rem;
 }
 
-/* ===== Install row (under hero) ===== */
+/* ===== Install row (merged into hero) ===== */
 .install {
   border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  background: var(--paper-2);
+  background: transparent;
 }
 .install__inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  padding: 1rem 0;
+  padding: 0.7rem 0;
   flex-wrap: wrap;
 }
 .install__cmd {
@@ -957,9 +956,11 @@ button {
 .surface-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0;
+}
+.surface-grid--inline {
+  margin-top: clamp(1.25rem, 2.5vw, 2rem);
   border-top: 1px solid var(--line);
-  border-left: 1px solid var(--line);
+  padding-top: clamp(1.25rem, 2.5vw, 2rem);
 }
 .surface-card {
   border-right: 1px solid var(--line);
@@ -1039,7 +1040,7 @@ button {
   overflow: hidden;
   border: 1px solid var(--line);
   background: var(--ink);
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 10;
   display: flex;
   flex-direction: column;
 }
@@ -1227,22 +1228,65 @@ button {
 .research {
   background: var(--paper-2);
   border-top: 1px solid var(--line);
-  padding: clamp(3rem, 5vw, 4.75rem) 0;
+  padding: clamp(2rem, 3.5vw, 3.25rem) 0;
 }
 .research__head .research__num {
   font-style: normal;
   color: var(--tg-orange);
   font-weight: 600;
 }
-.research__col--full {
-  margin-top: 1.4rem;
-  padding-top: 1.4rem;
-  border-top: 1px solid var(--line);
+.research__grid {
+  margin-top: 1.75rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.research__col {
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1.5rem 1.5rem 1.25rem;
+}
+.research__col-head {
+  margin-bottom: 1rem;
+}
+.research__col-tag {
+  display: inline-block;
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tg-orange);
+  margin-bottom: 0.55rem;
+}
+.research__col-title {
+  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0 0 0.4rem;
+  color: var(--ink);
+}
+.research__col-lead {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 0;
+}
+.research__col-cta {
+  margin-top: auto;
+  padding-top: 1.25rem;
+}
+.research__col-cta .btn {
+  width: 100%;
+  justify-content: center;
 }
 .research__insts {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.45rem;
+  gap: 0.4rem;
+  align-content: flex-start;
 }
 .research__inst {
   font-family: var(--font-mono), monospace;
@@ -1250,14 +1294,51 @@ button {
   letter-spacing: 0.02em;
   color: var(--ink-soft);
   padding: 5px 10px;
-  background: var(--paper);
+  background: var(--paper-2);
   border: 1px solid var(--line);
   border-radius: 999px;
   white-space: nowrap;
 }
-.research__cta {
-  text-align: center;
-  margin-top: 2.25rem;
+.research__deps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-content: flex-start;
+}
+.research__dep {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.01em;
+  color: var(--ink-soft);
+  padding: 5px 10px;
+  background: var(--paper-2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+.research__dep:hover {
+  color: var(--ink);
+  border-color: var(--tg-orange);
+  background: var(--paper);
+}
+.research__dep-name {
+  font-weight: 500;
+}
+.research__dep-stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  color: var(--tg-orange);
+  font-size: 10.5px;
+  font-variant-numeric: tabular-nums;
 }
 
 /* ===== Carousel (videos) ===== */
@@ -1378,7 +1459,7 @@ button {
   background: var(--navy);
   color: var(--navy-fg);
   border-top: 1px solid var(--navy-line);
-  padding: clamp(3rem, 5vw, 4.5rem) 0;
+  padding: clamp(2rem, 3.5vw, 3.25rem) 0;
 }
 .sponsors__inner {
   display: grid;
@@ -1476,13 +1557,13 @@ button {
 .footer {
   background: var(--paper-2);
   border-top: 1px solid var(--line);
-  padding: 3rem 0 1.5rem;
+  padding: 2rem 0 1.25rem;
 }
 .footer__top {
   display: grid;
   grid-template-columns: 1.6fr repeat(3, 1fr);
-  gap: 2.5rem;
-  padding-bottom: 3rem;
+  gap: 2rem;
+  padding-bottom: 1.75rem;
   border-bottom: 1px solid var(--line);
 }
 .footer__brand img {
@@ -1497,14 +1578,23 @@ button {
   max-width: 36ch;
 }
 .footer__cite {
-  margin-top: 1rem;
+  margin-top: 0.75rem;
+}
+.footer__cite > summary {
+  cursor: pointer;
+  list-style: none;
+}
+.footer__cite > summary::-webkit-details-marker {
+  display: none;
+}
+.footer__cite[open] > summary {
+  margin-bottom: 0.5rem;
 }
 .footer__cite-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-  margin-bottom: 0.5rem;
 }
 .footer__cite-link {
   font-family: var(--font-mono), monospace;
