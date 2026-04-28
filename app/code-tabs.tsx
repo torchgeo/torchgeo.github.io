@@ -15,6 +15,7 @@ type Sample = {
   desc: ReactNode;
   bullets: [string, string][];
   cmd: string;
+  okLine: string;
   code: Tok[][];
 };
 
@@ -32,11 +33,12 @@ const SAMPLES: Sample[] = [
       </>
     ),
     bullets: [
-      ["CRS-aware", "windows align to the UTM grid, not array indices."],
+      ["CRS-aware", "windows align to the dataset CRS, not array indices."],
       ["13-band input", "Sentinel-2 MSI, no RGB workaround."],
       ["Pretrained weights", "SeCo, MoCo, MAE, DOFA, DINO-v2."],
     ],
     cmd: "python eurosat.py --epochs 50",
+    okLine: "Loaded · Sentinel-2 · 13 bands · 64×64",
     code: [
       [["com", "# Fresh interpreter to a fine-tuned Sentinel-2 ResNet-18."]],
       [
@@ -146,10 +148,14 @@ const SAMPLES: Sample[] = [
     ),
     bullets: [
       ["Native rasters", "reads GeoTIFFs as-is; no pre-chipping required."],
-      ["Spatial sampler", "GridGeoSampler walks a regular UTM grid."],
+      [
+        "Spatial sampler",
+        "GridGeoSampler walks a regular grid in the dataset CRS.",
+      ],
       ["Composable trainer", "swap the backbone with one keyword."],
     ],
     cmd: "python inria.py --epochs 30",
+    okLine: "Loaded · aerial RGB · 0.3 m/px · 5000×5000",
     code: [
       [["com", "# Pixel-wise segmentation — same shape, different head."]],
       [
@@ -276,6 +282,7 @@ const SAMPLES: Sample[] = [
       ["Detection trainer", "mAP, IoU, F1 logged out of the box."],
     ],
     cmd: "python vhr10.py --epochs 25",
+    okLine: "Loaded · VHR aerial RGB · 10 classes · 800 scenes",
     code: [
       [["com", "# Object detection on very-high-resolution aerial imagery."]],
       [
@@ -387,6 +394,7 @@ const SAMPLES: Sample[] = [
       ["Instance trainer", "mAP-bbox and mAP-mask tracked separately."],
     ],
     cmd: "python vhr10_masks.py --epochs 25",
+    okLine: "Loaded · VHR aerial RGB · masks + boxes · 10 classes",
     code: [
       [["com", "# Instance segmentation: same dataset, mask head added."]],
       [
@@ -496,7 +504,7 @@ function CodeBody({ code }: { code: Tok[][] }) {
   );
 }
 
-function Terminal({ cmd }: { cmd: string }) {
+function Terminal({ cmd, okLine }: { cmd: string; okLine: string }) {
   const [typed1, setTyped1] = useState("");
   const [typed2, setTyped2] = useState("");
   const [phase, setPhase] = useState<0 | 1 | 2 | 3 | 4>(0);
@@ -572,7 +580,7 @@ function Terminal({ cmd }: { cmd: string }) {
         {phase >= 2 && phase < 4 ? <span className="cur" /> : null}
       </div>
       <div className="row" style={{ opacity: phase >= 4 ? 1 : 0 }}>
-        <span className="ok">Loaded · 13 bands · WGS-84</span>
+        <span className="ok">{okLine}</span>
       </div>
     </div>
   );
@@ -600,7 +608,11 @@ export function CodeTabs() {
             </li>
           ))}
         </ul>
-        <Terminal key={`term-${active.key}`} cmd={active.cmd} />
+        <Terminal
+          key={`term-${active.key}`}
+          cmd={active.cmd}
+          okLine={active.okLine}
+        />
       </div>
 
       <div>

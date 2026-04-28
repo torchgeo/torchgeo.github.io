@@ -9,6 +9,8 @@ import { type Video, VideoCarousel } from "./video-carousel";
 const SPONSOR_URL = "https://github.com/sponsors/torchgeo";
 const GET_STARTED_URL =
   "https://torchgeo.readthedocs.io/en/stable/tutorials/getting_started.html";
+const SLACK_URL =
+  "https://torchgeo.slack.com/join/shared_invite/zt-22rse667m-eqtCeNW0yI000Tl4B~2PIw";
 
 const navigation = [
   { href: "https://torchgeo.readthedocs.io", label: "Docs" },
@@ -252,7 +254,12 @@ const yearSpan = (() => {
 })();
 
 // --- Dependents (projects that import torchgeo) -----------------------------
-type Dependent = { repo: string; url: string; stars: number; description: string };
+type Dependent = {
+  repo: string;
+  url: string;
+  stars: number;
+  description: string;
+};
 const dependents = (dependentsData.projects ?? []) as Dependent[];
 const dependentsCount = dependentsData.total_projects ?? dependents.length;
 const dependentsOrgCount = dependentsData.total_orgs ?? 0;
@@ -345,6 +352,9 @@ export default function Home() {
             <a className="btn btn--ghost btn--sponsor" href={SPONSOR_URL}>
               <HeartIcon className="heart" /> Sponsor
             </a>
+            <a className="btn btn--ghost btn--sponsor" href={SLACK_URL}>
+              Join Slack
+            </a>
             <a className="btn btn--primary" href={GET_STARTED_URL}>
               Get started
               <ArrowUpRightIcon className="arrow" />
@@ -356,15 +366,17 @@ export default function Home() {
       <section className="hero">
         <div className="shell hero__inner">
           <div className="hero__copy">
-            <span className="kicker">Official PyTorch Ecosystem Library · est. 2021</span>
+            <span className="kicker">
+              Official PyTorch Ecosystem Library · est. 2021
+            </span>
             <h1 className="hero__title">
               Geospatial deep learning,
               <br />
               without the <em>glue&nbsp;code</em>.
             </h1>
             <p className="hero__lead">
-              Satellite imagery has its own geometry, statistics, and metadata
-              — it&rsquo;s{" "}
+              Satellite imagery has its own geometry, statistics, and metadata —
+              it&rsquo;s{" "}
               <a href="https://arxiv.org/abs/2402.01444">
                 a different modality
               </a>{" "}
@@ -394,7 +406,6 @@ export default function Home() {
                 <ArrowUpRightIcon className="arrow" />
               </a>
             </div>
-
           </div>
 
           <div className="hero__visual">
@@ -585,22 +596,25 @@ export default function Home() {
           <div className="section__head section__head--stacked research__head">
             <span className="kicker kicker--mint">Research adoption</span>
             <h2 className="section-title">
-              Cited by <em className="research__num">{citingDisplay} papers</em>,
-              imported by{" "}
-              <em className="research__num">{dependentsCount}+ public repos</em>.
+              Cited by <em className="research__num">{citingDisplay} papers</em>
+              , imported by{" "}
+              <em className="research__num">{dependentsCount}+ public repos</em>
+              .
             </h2>
             <p className="section-lead">
-              Citations counted from the {yearSpan} paper forward (Google Scholar,
-              rounded down). Repo count comes from GitHub&rsquo;s dependency
-              graph, filtered to non-fork, non-archived geospatial projects
-              across {dependentsOrgCount} organizations.
+              Citations counted from the {yearSpan} paper forward (Google
+              Scholar, rounded down). Repo count comes from GitHub&rsquo;s
+              dependency graph, filtered to non-fork, non-archived geospatial
+              projects across {dependentsOrgCount} organizations.
             </p>
           </div>
 
           <div className="research__grid">
             <div className="research__col">
               <div className="research__col-head">
-                <span className="research__col-tag">Top institutions · {topInstitutions.length} of many</span>
+                <span className="research__col-tag">
+                  Top institutions · {topInstitutions.length} of many
+                </span>
               </div>
               <div className="research__insts">
                 {topInstitutions.map((i) => (
@@ -612,7 +626,7 @@ export default function Home() {
               <div className="research__col-cta">
                 <a
                   className="btn btn--ghost"
-                  href="https://scholar.google.com/scholar?cites=12376927840983425574"
+                  href="https://scholar.google.com/scholar?cites=1909341217001100103"
                 >
                   See all citing work
                   <ArrowUpRightIcon className="arrow" />
@@ -622,7 +636,10 @@ export default function Home() {
 
             <div className="research__col">
               <div className="research__col-head">
-                <span className="research__col-tag">Top {topDependents.length} repos by stars · {dependentsCount} total</span>
+                <span className="research__col-tag">
+                  Top {topDependents.length} repos by stars · {dependentsCount}{" "}
+                  total
+                </span>
               </div>
               <div className="research__deps">
                 {topDependents.map((d) => (
@@ -677,11 +694,13 @@ export default function Home() {
               Space42, and IBM Research.
             </h3>
             <p>
-              Started in 2021 as a Microsoft AI for Good internship, TorchGeo
-              now operates as an independent, self-governing OSGeo Community
-              Project — MIT-licensed, with contributors across academia,
-              industry, and government. Sponsorships fund maintainer time, model
-              checkpoints, dataset hosting, and workshops.
+              Started in 2021 as a Microsoft AI for Good internship project,
+              TorchGeo now operates as an independent, self-governing OSGeo
+              Community Project — MIT-licensed, with contributors across
+              academia, industry, and government. In 2025 the TorchGeo
+              Organization was founded to steward the project. Sponsorships fund
+              maintainer time, model checkpoints, dataset hosting, and
+              workshops.
             </p>
             <div className="sponsors__actions">
               <a className="btn btn--orange" href={SPONSOR_URL}>
@@ -690,9 +709,9 @@ export default function Home() {
               </a>
               <a
                 className="btn btn--inverse"
-                href="https://github.com/torchgeo/torchgeo/blob/main/GOVERNANCE.md"
+                href="https://github.com/torchgeo/governance"
               >
-                Read the charter
+                Read the governance
                 <ArrowUpRightIcon className="arrow" />
               </a>
             </div>
@@ -769,6 +788,9 @@ export default function Home() {
               <h5>Community</h5>
               <ul>
                 <li>
+                  <a href={SLACK_URL}>Slack</a>
+                </li>
+                <li>
                   <a href="https://github.com/torchgeo/torchgeo/discussions">
                     Discussions
                   </a>
@@ -795,7 +817,7 @@ export default function Home() {
                   <a href={SPONSOR_URL}>GitHub Sponsors</a>
                 </li>
                 <li>
-                  <a href="https://github.com/torchgeo/torchgeo/blob/main/GOVERNANCE.md">
+                  <a href="https://github.com/torchgeo/governance">
                     Governance
                   </a>
                 </li>
