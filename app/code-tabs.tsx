@@ -141,8 +141,8 @@ const SAMPLES: Sample[] = [
     title: "Building-footprint segmentation on Inria.",
     desc: (
       <>
-        Pixel-wise binary segmentation on 0.3 m aerial imagery. A U-Net with a
-        SeCo-pretrained ResNet-50 encoder reaches strong IoU in fewer than 30
+        Pixel-wise binary segmentation on 0.3 m aerial imagery. This example
+        optimizes a U-Net with a SeCo-pretrained ResNet-50 encoder for 30
         epochs.
       </>
     ),
@@ -642,7 +642,7 @@ export function CodeTabs() {
               {active.file}
               <span className="ext">.py</span>
             </span>
-            <span className="code-card__pill">runs as-is</span>
+            <span className="code-card__pill">complete example</span>
           </div>
           <div className="code-card__body">
             <CodeBody code={active.code} />

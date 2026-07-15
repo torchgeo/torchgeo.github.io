@@ -1,13 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import { Inter_Tight, JetBrains_Mono } from "next/font/google";
+import { JetBrains_Mono, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
+import "./research.css";
 
 const SITE_URL = "https://torchgeo.org";
 const SITE_TITLE = "TorchGeo · Geospatial deep learning for PyTorch";
 const SITE_DESCRIPTION =
   "TorchGeo is a PyTorch domain library for satellite and aerial imagery — datasets, samplers, transforms, and pretrained models for geospatial machine learning.";
 
-const interTight = Inter_Tight({
+const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
   variable: "--font-body",
   weight: ["400", "500", "600", "700"],
@@ -38,7 +39,9 @@ export const metadata: Metadata = {
     "Sentinel-2",
     "multispectral",
   ],
-  authors: [{ name: "The TorchGeo Authors", url: "https://github.com/torchgeo" }],
+  authors: [
+    { name: "The TorchGeo Authors", url: "https://github.com/torchgeo" },
+  ],
   creator: "The TorchGeo Authors",
   publisher: "The TorchGeo Organization",
   alternates: {
@@ -138,7 +141,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${interTight.variable} ${jetbrainsMono.variable}`}>
+      <body className={`${sourceSerif.variable} ${jetbrainsMono.variable}`}>
         {children}
         <script
           type="application/ld+json"

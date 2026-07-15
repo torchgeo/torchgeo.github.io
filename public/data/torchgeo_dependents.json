@@ -1,45 +1,51 @@
 {
-  "generated_at": "2026-04-27",
-  "source": "https://github.com/microsoft/torchgeo/network/dependents",
-  "total_projects": 184,
-  "total_orgs": 160,
+  "generated_at": "2026-07-15",
+  "source": "https://github.com/microsoft/torchgeo/network/dependents?dependent_type=REPOSITORY",
+  "total_projects": 194,
+  "total_orgs": 169,
   "filters": "non-fork, non-archived, geospatial-only (LLM-serving transitive deps via terratorch excluded)",
   "projects": [
     {
       "repo": "opengeos/geoai",
       "url": "https://github.com/opengeos/geoai",
-      "stars": 2924,
+      "stars": 3180,
       "description": "GeoAI: Artificial Intelligence for Geospatial Data"
     },
     {
-      "repo": "terrastackai/terratorch",
-      "url": "https://github.com/terrastackai/terratorch",
-      "stars": 783,
+      "repo": "torchgeo/terratorch",
+      "url": "https://github.com/torchgeo/terratorch",
+      "stars": 832,
       "description": "A Python toolkit for fine-tuning Geospatial Foundation Models (GFMs)."
+    },
+    {
+      "repo": "allenai/olmoearth_pretrain",
+      "url": "https://github.com/allenai/olmoearth_pretrain",
+      "stars": 282,
+      "description": "Earth system foundation model data, training, and eval"
     },
     {
       "repo": "ESA-PhiLab/Major-TOM",
       "url": "https://github.com/ESA-PhiLab/Major-TOM",
-      "stars": 223,
+      "stars": 224,
       "description": "Expandable Datasets for Earth Observation"
     },
     {
       "repo": "NRCan/geo-deep-learning",
       "url": "https://github.com/NRCan/geo-deep-learning",
-      "stars": 198,
+      "stars": 197,
       "description": "Deep learning applied to georeferenced datasets"
     },
     {
       "repo": "ServiceNow/geo-bench",
       "url": "https://github.com/ServiceNow/geo-bench",
-      "stars": 189,
+      "stars": 192,
       "description": "GEO-Bench: Toward Foundation Models for Earth Monitoring"
     },
     {
-      "repo": "allenai/olmoearth_pretrain",
-      "url": "https://github.com/allenai/olmoearth_pretrain",
-      "stars": 184,
-      "description": "Earth system foundation model data, training, and eval"
+      "repo": "fieldsoftheworld/ftw-baselines",
+      "url": "https://github.com/fieldsoftheworld/ftw-baselines",
+      "stars": 155,
+      "description": "Code for running baseline models/experiments with the Fields of The World dataset"
     },
     {
       "repo": "opengeos/geospatial-ml",
@@ -50,80 +56,68 @@
     {
       "repo": "zhu-xlab/Copernicus-FM",
       "url": "https://github.com/zhu-xlab/Copernicus-FM",
-      "stars": 137,
+      "stars": 146,
       "description": "Towards a Unified Copernicus Foundation Model for Earth Vision"
-    },
-    {
-      "repo": "fieldsoftheworld/ftw-baselines",
-      "url": "https://github.com/fieldsoftheworld/ftw-baselines",
-      "stars": 131,
-      "description": "Code for running baseline models/experiments with the Fields of The World dataset"
     },
     {
       "repo": "terrafloww/rasteret",
       "url": "https://github.com/terrafloww/rasteret",
-      "stars": 124,
+      "stars": 135,
       "description": "Rasteret is a library for 20x+ faster reads of GeoTIFF than Rasterio/GDAL. Interops with TorchGeo, Xarray, DuckDB, Polars"
     },
     {
       "repo": "EarthNets/Dataset4EO",
       "url": "https://github.com/EarthNets/Dataset4EO",
-      "stars": 101,
+      "stars": 99,
       "description": "Officail Repo for the EarthNets Platform.  https://ieeexplore.ieee.org/abstract/document/10731951"
     },
     {
       "repo": "allenai/rslearn",
       "url": "https://github.com/allenai/rslearn",
-      "stars": 83,
+      "stars": 90,
       "description": "A tool for developing remote sensing datasets and models."
+    },
+    {
+      "repo": "allenai/olmoearth_projects",
+      "url": "https://github.com/allenai/olmoearth_projects",
+      "stars": 78,
+      "description": "OlmoEarth projects"
+    },
+    {
+      "repo": "microsoft/buildings",
+      "url": "https://github.com/microsoft/buildings",
+      "stars": 78,
+      "description": "A global building density and height dataset."
     },
     {
       "repo": "aws-samples/sample-geospatial-foundation-models-on-aws",
       "url": "https://github.com/aws-samples/sample-geospatial-foundation-models-on-aws",
       "stars": 76,
-      "description": ""
-    },
-    {
-      "repo": "microsoft/buildings",
-      "url": "https://github.com/microsoft/buildings",
-      "stars": 72,
-      "description": "A global building density and height dataset."
-    },
-    {
-      "repo": "allenai/olmoearth_projects",
-      "url": "https://github.com/allenai/olmoearth_projects",
-      "stars": 68,
-      "description": "OlmoEarth projects"
+      "description": "Leverage Geospatial Foundation Models (GeoFMs) on AWS for earth-scale ecosystem monitoring \u2014 featuring semantic search, change detection, and fine-tuning capabilities powered by Clay-v01, SageMaker Pi"
     },
     {
       "repo": "zhuduowang/ChangeViT",
       "url": "https://github.com/zhuduowang/ChangeViT",
-      "stars": 62,
+      "stars": 67,
       "description": "[Pattern Recognition] ChangeViT: Unleashing Plain Vision Transformers for Change Detection"
-    },
-    {
-      "repo": "isaaccorley/hydro-foundation-model",
-      "url": "https://github.com/isaaccorley/hydro-foundation-model",
-      "stars": 60,
-      "description": "Hydro -- A Foundation Model for Water in Satellite Imagery"
     },
     {
       "repo": "stac-extensions/mlm",
       "url": "https://github.com/stac-extensions/mlm",
-      "stars": 60,
+      "stars": 65,
       "description": "STAC Machine Learning Model (MLM) extension to describe ML models, their training details, and inference runtime requirements."
+    },
+    {
+      "repo": "isaaccorley/hydro-foundation-model",
+      "url": "https://github.com/isaaccorley/hydro-foundation-model",
+      "stars": 62,
+      "description": "Hydro -- A Foundation Model for Water in Satellite Imagery"
     },
     {
       "repo": "isaaccorley/a-change-detection-reality-check",
       "url": "https://github.com/isaaccorley/a-change-detection-reality-check",
-      "stars": 57,
+      "stars": 60,
       "description": "Code and experiments for the paper, \"A Change Detection Reality Check\", Corley et al."
-    },
-    {
-      "repo": "RolnickLab/FoMo-Bench",
-      "url": "https://github.com/RolnickLab/FoMo-Bench",
-      "stars": 56,
-      "description": ""
     },
     {
       "repo": "microsoft/data-centric-satellite-segmentation",
@@ -132,45 +126,57 @@
       "description": "Contains implementations of data-centric approaches for improving semantic segmentation on satellite imagery."
     },
     {
-      "repo": "IBM/remote-sensing-image-retrieval",
-      "url": "https://github.com/IBM/remote-sensing-image-retrieval",
-      "stars": 51,
-      "description": "Multi-Spectral Remote Sensing Image Retrieval using Geospatial Foundation Models"
+      "repo": "RolnickLab/FoMo-Bench",
+      "url": "https://github.com/RolnickLab/FoMo-Bench",
+      "stars": 56,
+      "description": ""
     },
     {
-      "repo": "plantnet/malpolon",
-      "url": "https://github.com/plantnet/malpolon",
-      "stars": 43,
-      "description": "Deep-SDM framework"
+      "repo": "IBM/remote-sensing-image-retrieval",
+      "url": "https://github.com/IBM/remote-sensing-image-retrieval",
+      "stars": 52,
+      "description": "Multi-Spectral Remote Sensing Image Retrieval using Geospatial Foundation Models"
     },
     {
       "repo": "IGNF/MAESTRO",
       "url": "https://github.com/IGNF/MAESTRO",
-      "stars": 42,
+      "stars": 47,
       "description": "Masked Autoencoders for Multimodal, Multitemporal, and Multispectral Earth Observation Data"
+    },
+    {
+      "repo": "plantnet/malpolon",
+      "url": "https://github.com/plantnet/malpolon",
+      "stars": 44,
+      "description": "Deep-SDM framework"
+    },
+    {
+      "repo": "AABNassim/spectral_earth",
+      "url": "https://github.com/AABNassim/spectral_earth",
+      "stars": 42,
+      "description": ""
     },
     {
       "repo": "stanfordmlgroup/USat",
       "url": "https://github.com/stanfordmlgroup/USat",
-      "stars": 41,
+      "stars": 42,
       "description": ""
     },
     {
-      "repo": "DarthReca/crop-field-segmentation-ukan",
-      "url": "https://github.com/DarthReca/crop-field-segmentation-ukan",
-      "stars": 37,
+      "repo": "open-forest-observatory/tree-detection-framework",
+      "url": "https://github.com/open-forest-observatory/tree-detection-framework",
+      "stars": 39,
       "description": ""
     },
     {
       "repo": "HSG-AIML/GDA",
       "url": "https://github.com/HSG-AIML/GDA",
-      "stars": 36,
+      "stars": 38,
       "description": "Code repository for \"Parameter Efficient Self-supervised Geospatial Domain Adaptation\", CVPR 2024"
     },
     {
-      "repo": "AABNassim/spectral_earth",
-      "url": "https://github.com/AABNassim/spectral_earth",
-      "stars": 35,
+      "repo": "DarthReca/crop-field-segmentation-ukan",
+      "url": "https://github.com/DarthReca/crop-field-segmentation-ukan",
+      "stars": 37,
       "description": ""
     },
     {
@@ -180,22 +186,22 @@
       "description": "A lightweight R-based RESTful service to analyze Earth Observation data cubes in the cloud."
     },
     {
-      "repo": "open-forest-observatory/tree-detection-framework",
-      "url": "https://github.com/open-forest-observatory/tree-detection-framework",
+      "repo": "claimed-framework/iterate_deprecated",
+      "url": "https://github.com/claimed-framework/iterate_deprecated",
       "stars": 34,
-      "description": ""
-    },
-    {
-      "repo": "terrastackai/iterate",
-      "url": "https://github.com/terrastackai/iterate",
-      "stars": 29,
-      "description": "A tool for benchmarking and hyper-parameter optimization using TerraTorch. Leverages MLFlow for experiment logging, optuna for hyperparameter optimization and ray for parallelization."
+      "description": "A tool for benchmarking and hyper-parameter optimization over any executable. Leverages MLFlow for experiment logging, optuna for hyperparameter optimization and lsf, slurm and kubernetes for parallel"
     },
     {
       "repo": "NASA-IMPACT/ESA-NASA-workshop-2025",
       "url": "https://github.com/NASA-IMPACT/ESA-NASA-workshop-2025",
-      "stars": 29,
+      "stars": 32,
       "description": ""
+    },
+    {
+      "repo": "The-AI-Alliance/GEO-Bench-2",
+      "url": "https://github.com/The-AI-Alliance/GEO-Bench-2",
+      "stars": 30,
+      "description": "Code for GEO-Bench V2 datasets. Made in collaboration with TUM, IBM and ServiceNow."
     },
     {
       "repo": "xiong-zhitong/DOFA-pytorch",
@@ -216,10 +222,16 @@
       "description": ""
     },
     {
-      "repo": "The-AI-Alliance/GEO-Bench-2",
-      "url": "https://github.com/The-AI-Alliance/GEO-Bench-2",
-      "stars": 24,
-      "description": "Code for GEO-Bench V2 datasets. Made in collaboration with TUM, IBM and ServiceNow."
+      "repo": "fieldsoftheworld/ftw-prue",
+      "url": "https://github.com/fieldsoftheworld/ftw-prue",
+      "stars": 23,
+      "description": "Official code for the paper \"PRUE: A Practical Recipe for Field Boundary Segmentation at Scale\""
+    },
+    {
+      "repo": "nasa-nccs-hpda/pytorch-caney",
+      "url": "https://github.com/nasa-nccs-hpda/pytorch-caney",
+      "stars": 23,
+      "description": "PyTorch package with lots of tools for geospatial deep learning"
     },
     {
       "repo": "Pale-Blue-Dot-97/Minerva",
@@ -228,16 +240,16 @@
       "description": "Minerva project includes the minerva package that aids in the fitting and testing of neural network models. Includes pre and post-processing of land cover data. Designed for use with torchgeo datasets"
     },
     {
-      "repo": "nasa-nccs-hpda/pytorch-caney",
-      "url": "https://github.com/nasa-nccs-hpda/pytorch-caney",
-      "stars": 21,
-      "description": "PyTorch package with lots of tools for geospatial deep learning"
-    },
-    {
       "repo": "GeoAIAfrica/interactive_geospatial_mapping",
       "url": "https://github.com/GeoAIAfrica/interactive_geospatial_mapping",
       "stars": 21,
       "description": "Intended for an AMLD 2024 workshop."
+    },
+    {
+      "repo": "maltevb/ecomapper",
+      "url": "https://github.com/maltevb/ecomapper",
+      "stars": 20,
+      "description": ""
     },
     {
       "repo": "isaaccorley/resize-is-all-you-need",
@@ -246,33 +258,21 @@
       "description": "The official repository for the paper \"Revisiting pre-trained remote sensing model benchmarks: resizing and normalization matters\""
     },
     {
-      "repo": "maltevb/ecomapper",
-      "url": "https://github.com/maltevb/ecomapper",
-      "stars": 19,
-      "description": ""
-    },
-    {
       "repo": "mtrazzak/mae-pytorch",
       "url": "https://github.com/mtrazzak/mae-pytorch",
-      "stars": 16,
+      "stars": 17,
       "description": "A Simple PyTorch Lightning implementation of Masked Autoencoder"
-    },
-    {
-      "repo": "fieldsoftheworld/ftw-prue",
-      "url": "https://github.com/fieldsoftheworld/ftw-prue",
-      "stars": 15,
-      "description": "Official code for the paper \"PRUE: A Practical Recipe for Field Boundary Segmentation at Scale\""
     },
     {
       "repo": "NRCan/geo-inference",
       "url": "https://github.com/NRCan/geo-inference",
-      "stars": 15,
+      "stars": 16,
       "description": "A light-weight python package for extracting features from geospatial imagery"
     },
     {
       "repo": "Shuyu-Hu/QDFL",
       "url": "https://github.com/Shuyu-Hu/QDFL",
-      "stars": 14,
+      "stars": 15,
       "description": ""
     },
     {
@@ -284,8 +284,14 @@
     {
       "repo": "isaaccorley/temporal-mosaiks",
       "url": "https://github.com/isaaccorley/temporal-mosaiks",
-      "stars": 12,
+      "stars": 13,
       "description": "Embed2Scale Challenge 4th Place Solution (Training Free!)"
+    },
+    {
+      "repo": "mvrl/RANGE",
+      "url": "https://github.com/mvrl/RANGE",
+      "stars": 12,
+      "description": "RANGE: Retrieval Augmented Neural Fields for Multi-Resolution Geo Embeddings (CVPR 2025)"
     },
     {
       "repo": "IBM/mug",
@@ -296,14 +302,8 @@
     {
       "repo": "DimitrisMantas/RoofSense",
       "url": "https://github.com/DimitrisMantas/RoofSense",
-      "stars": 11,
+      "stars": 12,
       "description": "[3D GeoInfo 2025] RoofSense: A Multimodal Semantic Segmentation Dataset for Roofing Material Classification"
-    },
-    {
-      "repo": "mvrl/RANGE",
-      "url": "https://github.com/mvrl/RANGE",
-      "stars": 11,
-      "description": "RANGE: Retrieval Augmented Neural Fields for Multi-Resolution Geo Embeddings (CVPR 2025)"
     },
     {
       "repo": "GrainLearning/grainLearning",
@@ -318,16 +318,34 @@
       "description": "Convert PyPI entries to Spack package.py"
     },
     {
+      "repo": "IBM/SAR2NDVI",
+      "url": "https://github.com/IBM/SAR2NDVI",
+      "stars": 9,
+      "description": "SAR2NDVI: Pre-training for SAR-to-NDVI Image Translation (ICASSP 2024)"
+    },
+    {
       "repo": "Advanced-Vision-and-Learning-Lab/XAI_Analysis",
       "url": "https://github.com/Advanced-Vision-and-Learning-Lab/XAI_Analysis",
       "stars": 9,
       "description": ""
     },
     {
-      "repo": "IBM/SAR2NDVI",
-      "url": "https://github.com/IBM/SAR2NDVI",
-      "stars": 9,
-      "description": "SAR2NDVI: Pre-training for SAR-to-NDVI Image Translation (ICASSP 2024)"
+      "repo": "fusedio/fused-docs",
+      "url": "https://github.com/fusedio/fused-docs",
+      "stars": 8,
+      "description": "Fused documentation."
+    },
+    {
+      "repo": "goergen95/seapig",
+      "url": "https://github.com/goergen95/seapig",
+      "stars": 8,
+      "description": "Uncertainty based selection of compatible inputs"
+    },
+    {
+      "repo": "simonreise/remote-sensing-processor",
+      "url": "https://github.com/simonreise/remote-sensing-processor",
+      "stars": 8,
+      "description": "RSP is a tool for geospatial raster data processing and machine learning"
     },
     {
       "repo": "earthdaily/bids2023-hackathon",
@@ -336,10 +354,10 @@
       "description": ""
     },
     {
-      "repo": "simonreise/remote-sensing-processor",
-      "url": "https://github.com/simonreise/remote-sensing-processor",
+      "repo": "yichiac/crop-type-transfer-learning",
+      "url": "https://github.com/yichiac/crop-type-transfer-learning",
       "stars": 7,
-      "description": "RSP is a tool for geospatial raster data processing and machine learning"
+      "description": "Transfer Learning for Global Crop Type Mapping"
     },
     {
       "repo": "CedricLeon/HyLightning_template",
@@ -348,16 +366,22 @@
       "description": "Template repository for Data Science projects. Uses Hydra, Lightning, and Weights & Biases as base packages."
     },
     {
+      "repo": "reglab/aquaculture",
+      "url": "https://github.com/reglab/aquaculture",
+      "stars": 7,
+      "description": "Repository for \"Locating and measuring marine aquaculture production  with remote sensing: a computer vision approach in the French Mediterranean\""
+    },
+    {
+      "repo": "OpenGeoscience/geodatalytics",
+      "url": "https://github.com/OpenGeoscience/geodatalytics",
+      "stars": 6,
+      "description": "Urban Visualization and Data Analysis Toolkit"
+    },
+    {
       "repo": "alphavector/all",
       "url": "https://github.com/alphavector/all",
       "stars": 6,
       "description": ""
-    },
-    {
-      "repo": "yichiac/crop-type-transfer-learning",
-      "url": "https://github.com/yichiac/crop-type-transfer-learning",
-      "stars": 6,
-      "description": "Transfer Learning for Global Crop Type Mapping"
     },
     {
       "repo": "santiago2205/LSSQPS",
@@ -372,22 +396,46 @@
       "description": "Youtube tutorials of my channel pyinsights"
     },
     {
-      "repo": "reglab/aquaculture",
-      "url": "https://github.com/reglab/aquaculture",
+      "repo": "ServiceNow/geo-bench-experiments",
+      "url": "https://github.com/ServiceNow/geo-bench-experiments",
       "stars": 6,
-      "description": "Repository for \"Locating and measuring marine aquaculture production  with remote sensing: a computer vision approach in the French Mediterranean\""
+      "description": ""
     },
     {
-      "repo": "OpenGeoscience/geodatalytics",
-      "url": "https://github.com/OpenGeoscience/geodatalytics",
+      "repo": "gmarupilla/AgroTerraFlow",
+      "url": "https://github.com/gmarupilla/AgroTerraFlow",
       "stars": 5,
-      "description": "Urban Visualization and Data Analysis Toolkit"
+      "description": "Reproducible, uncertainty-aware geospatial suitability pipeline for agriculture + optional GeoAI engine (terraflow geoai {fields,landcover,canopy}) \u2014 Ordinary Kriging + LOOCV variogram, Monte-Carlo CI"
     },
     {
-      "repo": "umr-amap/iamap",
-      "url": "https://github.com/umr-amap/iamap",
+      "repo": "Ecotrust/forestvision",
+      "url": "https://github.com/Ecotrust/forestvision",
+      "stars": 5,
+      "description": "ForestVision extends TorchGeo datasets and samplers to support cloud-based geospatial data services."
+    },
+    {
+      "repo": "XavierJiezou/cloudseg",
+      "url": "https://github.com/XavierJiezou/cloudseg",
+      "stars": 5,
+      "description": "Cloud Segmentation for Remote Sensing"
+    },
+    {
+      "repo": "statisticsnorway/ssb-sgis",
+      "url": "https://github.com/statisticsnorway/ssb-sgis",
+      "stars": 5,
+      "description": "GIS utility functions used in Statistics Norway."
+    },
+    {
+      "repo": "Josephrp/nutonic",
+      "url": "https://github.com/Josephrp/nutonic",
       "stars": 4,
-      "description": "A QGIS plugin to use deep learning features to create maps without needing a GPU or large datasets."
+      "description": "NuTonic combines temporal satellite memory with visual-language reasoning so AI can not only see Earth from space, but explain what is changing and help people act sooner."
+    },
+    {
+      "repo": "HakaiInstitute/hakai-ml-train",
+      "url": "https://github.com/HakaiInstitute/hakai-ml-train",
+      "stars": 4,
+      "description": "Aerial image semantic segmentation for kelp, mussels, and others using PyTorch"
     },
     {
       "repo": "FinTechTonic/creditnexus",
@@ -396,34 +444,10 @@
       "description": "Loan market streamlining"
     },
     {
-      "repo": "statisticsnorway/ssb-sgis",
-      "url": "https://github.com/statisticsnorway/ssb-sgis",
+      "repo": "umr-amap/iamap",
+      "url": "https://github.com/umr-amap/iamap",
       "stars": 4,
-      "description": "GIS utility functions used in Statistics Norway."
-    },
-    {
-      "repo": "MatteoM95/Multitask-segmentation-from-satellite-imagery-for-burned-area-delineation-and-severity-estimation",
-      "url": "https://github.com/MatteoM95/Multitask-segmentation-from-satellite-imagery-for-burned-area-delineation-and-severity-estimation",
-      "stars": 4,
-      "description": "A multi-task learning semantic segmentation approach is employed for targeting both wildfire delineation and burn severity estimation. By exploiting a large dataset of images from past wildfires and i"
-    },
-    {
-      "repo": "GiovaSciortino/Vision-GNN-for-remote-sensing",
-      "url": "https://github.com/GiovaSciortino/Vision-GNN-for-remote-sensing",
-      "stars": 4,
-      "description": "Vision Graph Neural Network for Remote Sensing"
-    },
-    {
-      "repo": "ITC-Water-Resources/itc-hydrafloods-2024",
-      "url": "https://github.com/ITC-Water-Resources/itc-hydrafloods-2024",
-      "stars": 4,
-      "description": "Tutorials for ITC Course Observing and quantifying surface water in a changing world"
-    },
-    {
-      "repo": "Fanchengyan/GeoSAM-Image-Encoder",
-      "url": "https://github.com/Fanchengyan/GeoSAM-Image-Encoder",
-      "stars": 4,
-      "description": "A package for encoding satellite images into Geo-SAM features"
+      "description": "A QGIS plugin to use deep learning features to create maps without needing a GPU or large datasets."
     },
     {
       "repo": "Advanced-Vision-and-Learning-Lab/2024_V4A_Lacunarity_Pooling_Layer",
@@ -432,22 +456,40 @@
       "description": ""
     },
     {
-      "repo": "ServiceNow/geo-bench-experiments",
-      "url": "https://github.com/ServiceNow/geo-bench-experiments",
+      "repo": "ITC-Water-Resources/itc-hydrafloods-2024",
+      "url": "https://github.com/ITC-Water-Resources/itc-hydrafloods-2024",
       "stars": 4,
+      "description": "Tutorials for ITC Course Observing and quantifying surface water in a changing world"
+    },
+    {
+      "repo": "GiovaSciortino/Vision-GNN-for-remote-sensing",
+      "url": "https://github.com/GiovaSciortino/Vision-GNN-for-remote-sensing",
+      "stars": 4,
+      "description": "Vision Graph Neural Network for Remote Sensing"
+    },
+    {
+      "repo": "MatteoM95/Multitask-segmentation-from-satellite-imagery-for-burned-area-delineation-and-severity-estimation",
+      "url": "https://github.com/MatteoM95/Multitask-segmentation-from-satellite-imagery-for-burned-area-delineation-and-severity-estimation",
+      "stars": 4,
+      "description": "A multi-task learning semantic segmentation approach is employed for targeting both wildfire delineation and burn severity estimation. By exploiting a large dataset of images from past wildfires and i"
+    },
+    {
+      "repo": "Fanchengyan/GeoSAM-Image-Encoder",
+      "url": "https://github.com/Fanchengyan/GeoSAM-Image-Encoder",
+      "stars": 4,
+      "description": "A package for encoding satellite images into Geo-SAM features"
+    },
+    {
+      "repo": "Center-for-Effective-Global-Action-CEGA/MOSAIKS-Training-Manual",
+      "url": "https://github.com/Center-for-Effective-Global-Action-CEGA/MOSAIKS-Training-Manual",
+      "stars": 3,
+      "description": "MOSAIKS Training Manual"
+    },
+    {
+      "repo": "DHI/eotorch",
+      "url": "https://github.com/DHI/eotorch",
+      "stars": 3,
       "description": ""
-    },
-    {
-      "repo": "HakaiInstitute/hakai-ml-train",
-      "url": "https://github.com/HakaiInstitute/hakai-ml-train",
-      "stars": 3,
-      "description": "Aerial image semantic segmentation for kelp, mussels, and others using PyTorch"
-    },
-    {
-      "repo": "XavierJiezou/cloudseg",
-      "url": "https://github.com/XavierJiezou/cloudseg",
-      "stars": 3,
-      "description": "Cloud Segmentation for Remote Sensing"
     },
     {
       "repo": "timothygao8710/ScaleDet",
@@ -462,16 +504,16 @@
       "description": "Pypi\u672c\u5730\u955c\u50cf\u670d\u52a1\u5668\u642d\u5efa"
     },
     {
-      "repo": "Geethen/Burn_Area_Mapping",
-      "url": "https://github.com/Geethen/Burn_Area_Mapping",
-      "stars": 3,
-      "description": ""
-    },
-    {
       "repo": "rseng/rsepedia-analysis",
       "url": "https://github.com/rseng/rsepedia-analysis",
       "stars": 3,
       "description": "Exploring clustering of research software encyclopedia entries"
+    },
+    {
+      "repo": "Geethen/Burn_Area_Mapping",
+      "url": "https://github.com/Geethen/Burn_Area_Mapping",
+      "stars": 3,
+      "description": ""
     },
     {
       "repo": "russelldj/informative-path-planning-toolkit",
@@ -480,16 +522,22 @@
       "description": ""
     },
     {
-      "repo": "HamishMatthews/Siamese-Unet-Resnet50",
-      "url": "https://github.com/HamishMatthews/Siamese-Unet-Resnet50",
-      "stars": 3,
-      "description": "Siamese Unet with a Resnet50 backbone for binary segmentation of wildfire perimeters using pairs of 12-band Sentinel 2 L2A imagery."
+      "repo": "IBM/ML4EO-workshop-2026",
+      "url": "https://github.com/IBM/ML4EO-workshop-2026",
+      "stars": 2,
+      "description": "ML4EO-workshop-2026"
     },
     {
-      "repo": "Center-for-Effective-Global-Action-CEGA/MOSAIKS-Training-Manual",
-      "url": "https://github.com/Center-for-Effective-Global-Action-CEGA/MOSAIKS-Training-Manual",
+      "repo": "IBM/algorithm-nexus",
+      "url": "https://github.com/IBM/algorithm-nexus",
       "stars": 2,
-      "description": "MOSAIKS Training Manual"
+      "description": "A unified distribution for IBM AI Science models, handling dependency alignment and integration with vLLM."
+    },
+    {
+      "repo": "wxmiked/cannabis-deforestation",
+      "url": "https://github.com/wxmiked/cannabis-deforestation",
+      "stars": 2,
+      "description": "Deforestation analysis from cannabis cultivation in Calaveras County, California"
     },
     {
       "repo": "weix-liu/SCTNet",
@@ -498,20 +546,14 @@
       "description": "remote sensing cloud detection"
     },
     {
-      "repo": "Ecotrust/forestvision",
-      "url": "https://github.com/Ecotrust/forestvision",
-      "stars": 2,
-      "description": "ForestVision extends TorchGeo datasets and samplers to support cloud-based geospatial data services."
-    },
-    {
-      "repo": "DHI/eotorch",
-      "url": "https://github.com/DHI/eotorch",
+      "repo": "earthdaily/EDA-Documentation",
+      "url": "https://github.com/earthdaily/EDA-Documentation",
       "stars": 2,
       "description": ""
     },
     {
-      "repo": "earthdaily/EDA-Documentation",
-      "url": "https://github.com/earthdaily/EDA-Documentation",
+      "repo": "livingearth-system/livingearth_png",
+      "url": "https://github.com/livingearth-system/livingearth_png",
       "stars": 2,
       "description": ""
     },
@@ -520,12 +562,6 @@
       "url": "https://github.com/lccol/vig-eo",
       "stars": 2,
       "description": "Code of the paper \"ViGEO: an Assessment of Vision GNNs in Earth Observation\" to appear in SSTDM23 workshop @ ICDM 2023"
-    },
-    {
-      "repo": "livingearth-system/livingearth_png",
-      "url": "https://github.com/livingearth-system/livingearth_png",
-      "stars": 2,
-      "description": ""
     },
     {
       "repo": "sorny92/satellite-surface-algae-detection",
@@ -546,6 +582,12 @@
       "description": ""
     },
     {
+      "repo": "msradam/tirtha",
+      "url": "https://github.com/msradam/tirtha",
+      "stars": 1,
+      "description": "Open humanitarian accessibility mapping. Walking-time-to-nearest-essential-service via foundation-model-aware friction and OSMnx routing. Healthcare flagship, framework-general."
+    },
+    {
       "repo": "fieldsoftheworld/ftw-inference-api",
       "url": "https://github.com/fieldsoftheworld/ftw-inference-api",
       "stars": 1,
@@ -564,26 +606,14 @@
       "description": ""
     },
     {
-      "repo": "wxmiked/cannabis-deforestation",
-      "url": "https://github.com/wxmiked/cannabis-deforestation",
-      "stars": 1,
-      "description": ""
-    },
-    {
-      "repo": "chaturchatur/landsat",
-      "url": "https://github.com/chaturchatur/landsat",
-      "stars": 1,
-      "description": ""
-    },
-    {
       "repo": "wildfire-prep/data-preparation",
       "url": "https://github.com/wildfire-prep/data-preparation",
       "stars": 1,
       "description": "This repository houses data preparation notebooks for our project, titled: Remote Sensing of Brush Clearance to Enhance Wildfire Preparedness"
     },
     {
-      "repo": "DylanJinx/Blockchain-based-Data-Trading-Platform",
-      "url": "https://github.com/DylanJinx/Blockchain-based-Data-Trading-Platform",
+      "repo": "chaturchatur/landsat",
+      "url": "https://github.com/chaturchatur/landsat",
       "stars": 1,
       "description": ""
     },
@@ -594,8 +624,8 @@
       "description": "Garrulus dataset library (gdl) for creating data module, samplers, augmentations, and pre-trained models for geospatial or remote sensing data."
     },
     {
-      "repo": "larshaupt/CropPrediction",
-      "url": "https://github.com/larshaupt/CropPrediction",
+      "repo": "DylanJinx/Blockchain-based-Data-Trading-Platform",
+      "url": "https://github.com/DylanJinx/Blockchain-based-Data-Trading-Platform",
       "stars": 1,
       "description": ""
     },
@@ -608,6 +638,12 @@
     {
       "repo": "OlaAboKaram/Syrian-Heritage-Website",
       "url": "https://github.com/OlaAboKaram/Syrian-Heritage-Website",
+      "stars": 1,
+      "description": ""
+    },
+    {
+      "repo": "larshaupt/CropPrediction",
+      "url": "https://github.com/larshaupt/CropPrediction",
       "stars": 1,
       "description": ""
     },
@@ -636,16 +672,16 @@
       "description": ""
     },
     {
-      "repo": "tangos974/ml4earth",
-      "url": "https://github.com/tangos974/ml4earth",
-      "stars": 1,
-      "description": ""
-    },
-    {
       "repo": "OpenPlainsInc/openplainsinc.github.io",
       "url": "https://github.com/OpenPlainsInc/openplainsinc.github.io",
       "stars": 1,
       "description": "OpenPlains Learning is our educational platform that provides courses, tutorials, and resources to help users learn how to use our geospatial modeling tools effectively."
+    },
+    {
+      "repo": "tangos974/ml4earth",
+      "url": "https://github.com/tangos974/ml4earth",
+      "stars": 1,
+      "description": ""
     },
     {
       "repo": "tmandelz/AgroLuege",
@@ -660,10 +696,10 @@
       "description": ""
     },
     {
-      "repo": "paddeaux/met",
-      "url": "https://github.com/paddeaux/met",
+      "repo": "TokyoTechGUC/urbanlc",
+      "url": "https://github.com/TokyoTechGUC/urbanlc",
       "stars": 1,
-      "description": "Git repo for my work during my 12-week internship with Met \u00c9ireann as part of my PhD programme."
+      "description": ""
     },
     {
       "repo": "marianobonelli/streamlit_consultagro",
@@ -672,16 +708,10 @@
       "description": ""
     },
     {
-      "repo": "Alex-Blade/modular-classification-toolkit",
-      "url": "https://github.com/Alex-Blade/modular-classification-toolkit",
+      "repo": "paddeaux/met",
+      "url": "https://github.com/paddeaux/met",
       "stars": 1,
-      "description": ""
-    },
-    {
-      "repo": "TokyoTechGUC/urbanlc",
-      "url": "https://github.com/TokyoTechGUC/urbanlc",
-      "stars": 1,
-      "description": ""
+      "description": "Git repo for my work during my 12-week internship with Met \u00c9ireann as part of my PhD programme."
     },
     {
       "repo": "kirill-pribludenko/CV_ITMO_2023",
@@ -694,6 +724,54 @@
       "url": "https://github.com/Abdielfer/FloodProbabRNCanAbd",
       "stars": 1,
       "description": ""
+    },
+    {
+      "repo": "tisnik/test-dependabot-no-devs",
+      "url": "https://github.com/tisnik/test-dependabot-no-devs",
+      "stars": 0,
+      "description": ""
+    },
+    {
+      "repo": "PRADDZY/oai-cc-hc",
+      "url": "https://github.com/PRADDZY/oai-cc-hc",
+      "stars": 0,
+      "description": ""
+    },
+    {
+      "repo": "Nobatgeldi/AgriScape",
+      "url": "https://github.com/Nobatgeldi/AgriScape",
+      "stars": 0,
+      "description": "AgriScape AI: Satellite-to-Simulation Pipeline  - Transform Earth Observation Data into Photorealistic Unreal Engine Digital Twins*"
+    },
+    {
+      "repo": "taylor-geospatial/meta-chm-v2",
+      "url": "https://github.com/taylor-geospatial/meta-chm-v2",
+      "stars": 0,
+      "description": ""
+    },
+    {
+      "repo": "42-Projects-Nadoho/RAG",
+      "url": "https://github.com/42-Projects-Nadoho/RAG",
+      "stars": 0,
+      "description": ""
+    },
+    {
+      "repo": "lunasilvestre/wildfire-exposure-eo",
+      "url": "https://github.com/lunasilvestre/wildfire-exposure-eo",
+      "stars": 0,
+      "description": ""
+    },
+    {
+      "repo": "Rahebe22/diff_ftw",
+      "url": "https://github.com/Rahebe22/diff_ftw",
+      "stars": 0,
+      "description": ""
+    },
+    {
+      "repo": "LuxProvide/SCynergy2026-GeoAI",
+      "url": "https://github.com/LuxProvide/SCynergy2026-GeoAI",
+      "stars": 0,
+      "description": "A tutorial on how to fine-tune a geospatial foundation model (GeoFMs) on MeluXina"
     },
     {
       "repo": "ivanearisty/Vault",
@@ -720,14 +798,14 @@
       "description": ""
     },
     {
-      "repo": "Maryem-28/Aerosol-Optical-Depth-Estimation",
-      "url": "https://github.com/Maryem-28/Aerosol-Optical-Depth-Estimation",
-      "stars": 0,
-      "description": ""
-    },
-    {
       "repo": "mmarks13/geoai_veg_map",
       "url": "https://github.com/mmarks13/geoai_veg_map",
+      "stars": 0,
+      "description": "Multimodal geospatial deep learning for mapping vegetation structure from sparse 3DEP LiDAR, NAIP imagery, and UAVSAR."
+    },
+    {
+      "repo": "Maryem-28/Aerosol-Optical-Depth-Estimation",
+      "url": "https://github.com/Maryem-28/Aerosol-Optical-Depth-Estimation",
       "stars": 0,
       "description": ""
     },
@@ -748,12 +826,6 @@
       "url": "https://github.com/CarlottaGiacchetta/Pangea",
       "stars": 0,
       "description": ""
-    },
-    {
-      "repo": "panos-span/satellite_imaging_vision",
-      "url": "https://github.com/panos-span/satellite_imaging_vision",
-      "stars": 0,
-      "description": "Sentinel-2 Land Cover Mapping with Deep Learning"
     },
     {
       "repo": "xyntechx/xview25",
@@ -786,6 +858,12 @@
       "description": ""
     },
     {
+      "repo": "panos-span/satellite_imaging_vision",
+      "url": "https://github.com/panos-span/satellite_imaging_vision",
+      "stars": 0,
+      "description": "Sentinel-2 Land Cover Mapping with Deep Learning"
+    },
+    {
       "repo": "verilog15/repos2",
       "url": "https://github.com/verilog15/repos2",
       "stars": 0,
@@ -816,16 +894,16 @@
       "description": "to checkin the end to end AI/ML projects"
     },
     {
-      "repo": "joshuadarecullen/biomaster-finland",
-      "url": "https://github.com/joshuadarecullen/biomaster-finland",
-      "stars": 0,
-      "description": ""
-    },
-    {
       "repo": "dcherzig/CropSegmentation",
       "url": "https://github.com/dcherzig/CropSegmentation",
       "stars": 0,
       "description": ""
+    },
+    {
+      "repo": "kaushikCanada/urbantreecover",
+      "url": "https://github.com/kaushikCanada/urbantreecover",
+      "stars": 0,
+      "description": "An application that uses deep learning to calculate the amount of tree cover in a aerial imagery"
     },
     {
       "repo": "agbleze/stock_app",
@@ -840,10 +918,10 @@
       "description": ""
     },
     {
-      "repo": "kaushikCanada/urbantreecover",
-      "url": "https://github.com/kaushikCanada/urbantreecover",
+      "repo": "NINAnor/nedbygging-project",
+      "url": "https://github.com/NINAnor/nedbygging-project",
       "stars": 0,
-      "description": "An application that uses deep learning to calculate the amount of tree cover in a aerial imagery"
+      "description": "AI work for nedbygging project"
     },
     {
       "repo": "Mateiio/MultiModalGenAI",
@@ -852,22 +930,16 @@
       "description": "Use Multi Modal Generative AI to understand the world."
     },
     {
-      "repo": "kaushikCanada/neuralODE_RSclassification",
-      "url": "https://github.com/kaushikCanada/neuralODE_RSclassification",
-      "stars": 0,
-      "description": "A neural Ordinary Differential Equation based remote sensing image classification project"
-    },
-    {
       "repo": "kartAI/KAi_Mottakskontroll_segmentering",
       "url": "https://github.com/kartAI/KAi_Mottakskontroll_segmentering",
       "stars": 0,
       "description": "Tekstlig beskrivelse: Teste KartAI-algoritmer p\u00e5 utvalgt omr\u00e5de i et GeoVekst-prosjekt, for \u00e5 sjekke om KartAI-algoritmene kan detektere bygninger p\u00e5 et niv\u00e5 som kan v\u00e6re til hjelp ved mottakskontroll"
     },
     {
-      "repo": "NINAnor/nedbygging-project",
-      "url": "https://github.com/NINAnor/nedbygging-project",
+      "repo": "kaushikCanada/neuralODE_RSclassification",
+      "url": "https://github.com/kaushikCanada/neuralODE_RSclassification",
       "stars": 0,
-      "description": "AI work for nedbygging project"
+      "description": "A neural Ordinary Differential Equation based remote sensing image classification project"
     },
     {
       "repo": "talwarp1708/GNR650_Perceiver_23d1387_24d0295",
@@ -876,26 +948,14 @@
       "description": "Perceiver course project for GNR650 fullfilment"
     },
     {
-      "repo": "Achrefjr1997/OAD",
-      "url": "https://github.com/Achrefjr1997/OAD",
-      "stars": 0,
-      "description": ""
-    },
-    {
       "repo": "theVerySharpFlat/crop-seg",
       "url": "https://github.com/theVerySharpFlat/crop-seg",
       "stars": 0,
       "description": "Semantic segmentation of cropland from satelite data"
     },
     {
-      "repo": "oliviertina29/ats",
-      "url": "https://github.com/oliviertina29/ats",
-      "stars": 0,
-      "description": ""
-    },
-    {
-      "repo": "IfeAdemola/multispectral-imagery-segmentation",
-      "url": "https://github.com/IfeAdemola/multispectral-imagery-segmentation",
+      "repo": "Achrefjr1997/OAD",
+      "url": "https://github.com/Achrefjr1997/OAD",
       "stars": 0,
       "description": ""
     },
@@ -912,16 +972,22 @@
       "description": ""
     },
     {
-      "repo": "Caffinities/image_satellite",
-      "url": "https://github.com/Caffinities/image_satellite",
+      "repo": "oliviertina29/ats",
+      "url": "https://github.com/oliviertina29/ats",
       "stars": 0,
       "description": ""
     },
     {
-      "repo": "AstrixDj13/Serafim",
-      "url": "https://github.com/AstrixDj13/Serafim",
+      "repo": "IfeAdemola/multispectral-imagery-segmentation",
+      "url": "https://github.com/IfeAdemola/multispectral-imagery-segmentation",
       "stars": 0,
-      "description": "COntains Wildfire detection deep learning algorithms"
+      "description": ""
+    },
+    {
+      "repo": "Caffinities/image_satellite",
+      "url": "https://github.com/Caffinities/image_satellite",
+      "stars": 0,
+      "description": ""
     },
     {
       "repo": "mattifrind/DOFA-Seminar",
@@ -942,16 +1008,34 @@
       "description": "Backend for Marine Debris, a Zooniverse project"
     },
     {
-      "repo": "links-ads/igarss-fmars-gen",
-      "url": "https://github.com/links-ads/igarss-fmars-gen",
-      "stars": 0,
-      "description": ""
-    },
-    {
       "repo": "jayepraveen999/geo-dl-model",
       "url": "https://github.com/jayepraveen999/geo-dl-model",
       "stars": 0,
       "description": "DL Model for active fire detection actives using aggregated fire data and later perform qualitative evaluation using ground truth data."
+    },
+    {
+      "repo": "kaushikCanada/landcover-ssl",
+      "url": "https://github.com/kaushikCanada/landcover-ssl",
+      "stars": 0,
+      "description": "A self supervised land cover classification pipeline for high resolution satellite imagery"
+    },
+    {
+      "repo": "hrithikkmr527/Quantum_ML",
+      "url": "https://github.com/hrithikkmr527/Quantum_ML",
+      "stars": 0,
+      "description": ""
+    },
+    {
+      "repo": "ElizavetaSh/Satellite_Images",
+      "url": "https://github.com/ElizavetaSh/Satellite_Images",
+      "stars": 0,
+      "description": ""
+    },
+    {
+      "repo": "links-ads/igarss-fmars-gen",
+      "url": "https://github.com/links-ads/igarss-fmars-gen",
+      "stars": 0,
+      "description": ""
     },
     {
       "repo": "cybergis/docker-images",
@@ -960,8 +1044,8 @@
       "description": "A public repository for hosting the various docker images used by the CyberGIS Center"
     },
     {
-      "repo": "ElizavetaSh/Satellite_Images",
-      "url": "https://github.com/ElizavetaSh/Satellite_Images",
+      "repo": "Vihang26/DL-OBIA",
+      "url": "https://github.com/Vihang26/DL-OBIA",
       "stars": 0,
       "description": ""
     },
@@ -972,38 +1056,8 @@
       "description": ""
     },
     {
-      "repo": "Vihang26/DL-OBIA",
-      "url": "https://github.com/Vihang26/DL-OBIA",
-      "stars": 0,
-      "description": ""
-    },
-    {
-      "repo": "hrithikkmr527/Quantum_ML",
-      "url": "https://github.com/hrithikkmr527/Quantum_ML",
-      "stars": 0,
-      "description": ""
-    },
-    {
-      "repo": "kaushikCanada/landcover-ssl",
-      "url": "https://github.com/kaushikCanada/landcover-ssl",
-      "stars": 0,
-      "description": "A self supervised land cover classification pipeline for high resolution satellite imagery"
-    },
-    {
       "repo": "dilithjay/SatSeg",
       "url": "https://github.com/dilithjay/SatSeg",
-      "stars": 0,
-      "description": ""
-    },
-    {
-      "repo": "Yer1k/solar_wastewater",
-      "url": "https://github.com/Yer1k/solar_wastewater",
-      "stars": 0,
-      "description": "Understanding the scope, drivers, and energy justice implications of solar adoption in the United States wastewater sector using applied computer vision and satellite imagery"
-    },
-    {
-      "repo": "JacopoLungo/maxarSrc",
-      "url": "https://github.com/JacopoLungo/maxarSrc",
       "stars": 0,
       "description": ""
     },
@@ -1014,10 +1068,16 @@
       "description": "AMAP Remote Sensing Toolbox"
     },
     {
-      "repo": "Tobivanceobi/EuroSat_LUC_Pretrained",
-      "url": "https://github.com/Tobivanceobi/EuroSat_LUC_Pretrained",
+      "repo": "JacopoLungo/maxarSrc",
+      "url": "https://github.com/JacopoLungo/maxarSrc",
       "stars": 0,
-      "description": "The repository contains code for training models to predict the land use label of a satalite image (sentinetal2)."
+      "description": ""
+    },
+    {
+      "repo": "Yer1k/solar_wastewater",
+      "url": "https://github.com/Yer1k/solar_wastewater",
+      "stars": 0,
+      "description": "Understanding the scope, drivers, and energy justice implications of solar adoption in the United States wastewater sector using applied computer vision and satellite imagery"
     },
     {
       "repo": "citruscaesar/urban-insights",
@@ -1026,10 +1086,22 @@
       "description": ""
     },
     {
+      "repo": "Tobivanceobi/EuroSat_LUC_Pretrained",
+      "url": "https://github.com/Tobivanceobi/EuroSat_LUC_Pretrained",
+      "stars": 0,
+      "description": "The repository contains code for training models to predict the land use label of a satalite image (sentinetal2)."
+    },
+    {
       "repo": "stefl14/revalue",
       "url": "https://github.com/stefl14/revalue",
       "stars": 0,
       "description": ""
+    },
+    {
+      "repo": "burakekim/activefire_dl",
+      "url": "https://github.com/burakekim/activefire_dl",
+      "stars": 0,
+      "description": "Classification of active fire pixels from space using deep learning"
     },
     {
       "repo": "Dibz15/demo_OMS2CD",
@@ -1050,12 +1122,6 @@
       "description": ""
     },
     {
-      "repo": "burakekim/activefire_dl",
-      "url": "https://github.com/burakekim/activefire_dl",
-      "stars": 0,
-      "description": "Classification of active fire pixels from space using deep learning"
-    },
-    {
       "repo": "johannaskarpman/bids2023-hackathon",
       "url": "https://github.com/johannaskarpman/bids2023-hackathon",
       "stars": 0,
@@ -1074,32 +1140,26 @@
       "description": ""
     },
     {
-      "repo": "rpates24/DockerGitTorchGeo",
-      "url": "https://github.com/rpates24/DockerGitTorchGeo",
-      "stars": 0,
-      "description": ""
-    },
-    {
       "repo": "CSD-spaceapp2023/environments",
       "url": "https://github.com/CSD-spaceapp2023/environments",
       "stars": 0,
       "description": ""
     },
     {
-      "repo": "aliaksandr960/image_localization",
-      "url": "https://github.com/aliaksandr960/image_localization",
-      "stars": 0,
-      "description": ""
-    },
-    {
-      "repo": "mateuspinto/surface-water",
-      "url": "https://github.com/mateuspinto/surface-water",
+      "repo": "rpates24/DockerGitTorchGeo",
+      "url": "https://github.com/rpates24/DockerGitTorchGeo",
       "stars": 0,
       "description": ""
     },
     {
       "repo": "mpa-poverty/2-mpa",
       "url": "https://github.com/mpa-poverty/2-mpa",
+      "stars": 0,
+      "description": ""
+    },
+    {
+      "repo": "mateuspinto/surface-water",
+      "url": "https://github.com/mateuspinto/surface-water",
       "stars": 0,
       "description": ""
     },
