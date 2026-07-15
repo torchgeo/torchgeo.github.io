@@ -356,8 +356,9 @@ export default function Home() {
               TorchGeo provides CRS-aware datasets and samplers, multispectral
               transforms, and pretrained weights for satellite and aerial
               imagery. Its interfaces compose with PyTorch and Lightning.
-              TorchGeo and <a href={TERRATORCH_DOCS_URL}>TerraTorch</a> are
-              governed by the independent TorchGeo Organization.
+              TorchGeo, <a href={TORCHGEO_BENCH_DOCS_URL}>TorchGeo-Bench</a>,
+              and <a href={TERRATORCH_DOCS_URL}>TerraTorch</a> are projects of
+              the independent TorchGeo Organization.
             </p>
 
             <div className="hero__actions">
@@ -475,9 +476,10 @@ export default function Home() {
             <p>
               Founded at Microsoft AI for Good in 2021, TorchGeo is now an
               independent OSGeo Project. The TorchGeo Organization governs
-              TorchGeo and <a href={TERRATORCH_DOCS_URL}>TerraTorch</a> in
-              public. Sponsorships fund maintainer time, model checkpoints,
-              dataset hosting, and workshops.
+              TorchGeo, <a href={TORCHGEO_BENCH_DOCS_URL}>TorchGeo-Bench</a>,
+              and <a href={TERRATORCH_DOCS_URL}>TerraTorch</a> in public.
+              Sponsorships fund maintainer time, model checkpoints, dataset
+              hosting, and workshops.
             </p>
             <div className="sponsors__actions">
               <a className="btn btn--orange" href={SPONSOR_URL}>

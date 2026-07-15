@@ -98,9 +98,10 @@ await page.locator(".docs-menu > summary").click();
 
 const projectLanguage = await page.locator("body").innerText();
 log(
-  "organization status and TerraTorch are current",
+  "organization status and projects are current",
   !projectLanguage.includes("OSGeo Community Project") &&
     projectLanguage.includes("OSGeo Project") &&
+    projectLanguage.includes("TorchGeo-Bench") &&
     projectLanguage.includes("TerraTorch"),
 );
 
