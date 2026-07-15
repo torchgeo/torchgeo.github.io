@@ -1,6 +1,22 @@
 // Smoke test for the TorchGeo landing page. Exits non-zero on any failure.
 // Run with: bunx --bun playwright install chromium && node scripts/playwright_smoke.mjs
+import { readFile } from "node:fs/promises";
 import { chromium } from "playwright";
+
+const citations = JSON.parse(
+  await readFile(
+    new URL("../public/data/torchgeo_citations.json", import.meta.url),
+    "utf8",
+  ),
+);
+const expectedCitationCount = citations.counts.merged_unique;
+const dependents = JSON.parse(
+  await readFile(
+    new URL("../public/data/torchgeo_dependents.json", import.meta.url),
+    "utf8",
+  ),
+);
+const expectedDependentCount = dependents.total_projects;
 
 const BASE = process.env.BASE_URL ?? "http://localhost:3000";
 const failures = [];
@@ -36,9 +52,42 @@ const logoOk = await page.locator(".topbar__brand img").evaluate((el) => {
 });
 log("topbar logo loaded", logoOk);
 
-// 3. Hero asset renders the abstract gradient mosaic (24 tiles).
-const tileCount = await page.locator(".hero-asset__tile").count();
-log("hero asset has 24 tiles", tileCount === 24, `count=${tileCount}`);
+const topbarSpacing = await page.evaluate(() => {
+  const cluster = document.querySelector(".topbar__cluster");
+  const github = document.querySelector(".topbar__cluster .icon-btn");
+  const docs = document.querySelector(".topbar__docs");
+  if (!cluster || !github || !docs) return null;
+  const githubRect = github.getBoundingClientRect();
+  const docsRect = docs.getBoundingClientRect();
+  return {
+    gap: Math.round(docsRect.left - githubRect.right),
+    docsHeight: Math.round(docsRect.height),
+    docsWidth: Math.round(docsRect.width),
+  };
+});
+log(
+  "topbar actions are compact and separated",
+  Boolean(
+    topbarSpacing &&
+      topbarSpacing.gap >= 12 &&
+      topbarSpacing.docsHeight <= 36 &&
+      topbarSpacing.docsWidth <= 140,
+  ),
+  topbarSpacing ? JSON.stringify(topbarSpacing) : "controls missing",
+);
+
+const releaseLink = page.locator(".install__release");
+log(
+  "current stable release is visible",
+  (await releaseLink.textContent())?.trim() === "v0.9.0 · Feb 2026",
+);
+
+// 3. Hero asset renders the Sentinel-2 scene.
+const heroSceneOk = await page.locator(".hero-asset__scene").evaluate((el) => {
+  const img = /** @type {HTMLImageElement} */ (el);
+  return img.complete && img.naturalWidth > 0;
+});
+log("hero Sentinel-2 scene loaded", heroSceneOk);
 
 // 4. Hero sampler tag rotates through label states
 const tag = page.locator(".hero-asset__sampler-tag");
@@ -52,7 +101,7 @@ log(
 );
 
 // 5. Code tabs switch
-await page.locator(".tabs .tab", { hasText: "segmentation" }).click();
+await page.getByRole("tab", { name: "segmentation", exact: true }).click();
 await page.waitForTimeout(150);
 const segActive = await page
   .locator(".tabs .tab.is-active")
@@ -66,7 +115,7 @@ log(
   `file=${fileText}`,
 );
 
-await page.locator(".tabs .tab", { hasText: "detection" }).click();
+await page.getByRole("tab", { name: "detection", exact: true }).click();
 await page.waitForTimeout(150);
 const detText = await page.locator(".code-card__file").innerText();
 log(
@@ -75,20 +124,45 @@ log(
   `file=${detText}`,
 );
 
-await page.locator(".tabs .tab", { hasText: "classification" }).click();
+await page.getByRole("tab", { name: "classification", exact: true }).click();
 await page.waitForTimeout(150);
 
-// 6. Datasets gallery renders three tiles (Inria, VHR-10, browse-all)
-const datasetCount = await page.locator(".dataset").count();
-log("datasets grid has 3 tiles", datasetCount === 3, `count=${datasetCount}`);
+// 6. Datasets section stays focused on two examples plus one docs link.
+const datasetFigureCount = await page.locator(".dataset-figure").count();
+const datasetReferenceCount = await page
+  .locator("#datasets a", { hasText: "Browse all datasets" })
+  .count();
+log(
+  "datasets section has two figures and a quiet reference link",
+  datasetFigureCount === 2 && datasetReferenceCount === 1,
+  `figures=${datasetFigureCount} references=${datasetReferenceCount}`,
+);
 
-// 7. Surface grid links — count + sample href
-const surfaceCount = await page.locator(".surface-card").count();
-log("surface grid has 6 cards", surfaceCount === 6, `count=${surfaceCount}`);
+// 7. Keep the quickstart focused on runnable examples, then surface talks.
+const surfaceCount = await page.locator(".api-table tbody tr").count();
+const communityContextBeforeDatasets = await page.evaluate(() => {
+  const community = document.querySelector("#community");
+  const sponsors = document.querySelector("#sponsors");
+  const datasets = document.querySelector("#datasets");
+  return Boolean(
+    community &&
+      sponsors &&
+      datasets &&
+      community.compareDocumentPosition(datasets) &
+        Node.DOCUMENT_POSITION_FOLLOWING &&
+      sponsors.compareDocumentPosition(datasets) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+  );
+});
+log(
+  "quickstart omits module table and community context precedes datasets",
+  surfaceCount === 0 && communityContextBeforeDatasets,
+  `modules=${surfaceCount} communityFirst=${communityContextBeforeDatasets}`,
+);
 
-// 8. Models grid — 6 entries
-const modelCount = await page.locator(".model").count();
-log("models grid has 6 entries", modelCount === 6, `count=${modelCount}`);
+// 8. Model reference table has six entries.
+const modelCount = await page.locator(".model-table tbody tr").count();
+log("model table has 6 entries", modelCount === 6, `count=${modelCount}`);
 
 // 9. Video carousel auto-scrolls (RAF drift) without manual buttons.
 const carouselTrack = page.locator(".carousel-track").first();
@@ -115,38 +189,36 @@ log(
   partnerSrcs.map((p) => `${p.src}=${p.ok}`).join(" "),
 );
 
-// 10b. Stewarded-by light-variant logos load
-const stewardSrcs = await page
-  .locator(".stewards__logo img")
-  .evaluateAll((imgs) =>
-    imgs.map(
-      /** @param {HTMLImageElement} i */ (i) => ({
-        ok: i.complete && i.naturalWidth > 0,
-        src: i.getAttribute("src"),
-      }),
-    ),
-  );
+// 10b. Research section reports the exact checked-in evidence snapshot.
+const researchCopy = await page
+  .locator("#research .evidence-summary")
+  .innerText();
+const researchRows = await page
+  .locator("#research .compact-table tbody tr")
+  .count();
+const researchExplanations = await page
+  .locator("#research .evidence-block > p")
+  .count();
+const lastContentSection = await page.evaluate(
+  () => [...document.querySelectorAll("section[id]")].at(-1)?.id,
+);
 log(
-  "all stewarded-by logos loaded",
-  stewardSrcs.length === 5 && stewardSrcs.every((p) => p.ok),
-  stewardSrcs.map((p) => `${p.src}=${p.ok}`).join(" "),
+  "research evidence is exact, compact, and last before footer navigation",
+  researchCopy.includes(`${expectedCitationCount}`) &&
+    researchCopy.includes(`${expectedDependentCount}`) &&
+    researchRows === 16 &&
+    researchExplanations === 0 &&
+    lastContentSection === "research",
+  `rows=${researchRows} explanations=${researchExplanations} last=${lastContentSection}`,
 );
 
-// 10c. Hero stats wired
-const statCount = await page.locator(".hero__meta-item").count();
-log("hero stats row has 4 items", statCount === 4, `count=${statCount}`);
-
-// 10d. Citations section renders institution chips
-const instCount = await page.locator(".research__inst").count();
-log("research section populated", instCount >= 10, `insts=${instCount}`);
-
-// 10e. Sponsor CTAs link to GitHub Sponsors (navbar + section + footer ≥ 3)
+// 10c. Sponsor CTAs link to GitHub Sponsors (section + footer).
 const sponsorHrefs = await page
   .locator("a[href*='github.com/sponsors/torchgeo']")
   .evaluateAll((els) => els.length);
-log("sponsor links present", sponsorHrefs >= 3, `count=${sponsorHrefs}`);
+log("sponsor links present", sponsorHrefs >= 2, `count=${sponsorHrefs}`);
 
-// 10f. Footer BibTeX block
+// 10d. Footer BibTeX block
 const bibtex = await page.locator(".footer__bibtex").textContent();
 log(
   "footer bibtex includes stewart2022torchgeo",
@@ -170,7 +242,7 @@ const datasetsTop = await page
   .evaluate((el) => Math.round(el.getBoundingClientRect().top));
 log(
   "nav anchor scrolls to #datasets",
-  yBefore === 0 && Math.abs(datasetsTop) < 90,
+  yBefore === 0 && datasetsTop >= 64 && datasetsTop <= 96,
   `start=${yBefore}, targetTop=${datasetsTop}`,
 );
 
@@ -215,6 +287,15 @@ const m = await ctxMobile.newPage();
 await m.goto(BASE, { waitUntil: "networkidle" });
 log("mobile hero visible", await m.locator(".hero__title").isVisible());
 log("mobile topbar visible", await m.locator(".topbar").isVisible());
+const mobileWidths = await m.evaluate(() => ({
+  viewport: window.innerWidth,
+  document: document.documentElement.scrollWidth,
+}));
+log(
+  "mobile page has no document-level horizontal overflow",
+  mobileWidths.document === mobileWidths.viewport,
+  `${mobileWidths.document}px document / ${mobileWidths.viewport}px viewport`,
+);
 await ctxMobile.close();
 
 await browser.close();

@@ -12,6 +12,8 @@ Dedup key precedence:  DOI -> arXiv id -> normalized title.
 Citation counts: max(OpenAlex, Semantic Scholar) per paper.
 Author affiliations: requested inline from S2 (authors.affiliations); merged
 records also pull affiliations from OpenAlex authorships (raw + institutions).
+If the output already exists, affiliation enrichment is reused for unchanged
+records and slow CrossRef/arXiv lookups run only for newly discovered papers.
 """
 
 import argparse
@@ -567,6 +569,20 @@ def main() -> int:
     )
     args = parser.parse_args()
 
+    previous_by_key: dict[str, dict] = {}
+    if os.path.exists(args.out):
+        try:
+            with open(args.out) as f:
+                previous = json.load(f)
+            previous_by_key = {
+                dedupe_key(rec): rec for rec in previous.get("papers", [])
+            }
+            print(
+                f"Reusing enrichment from {len(previous_by_key)} existing records..."
+            )
+        except (OSError, json.JSONDecodeError):
+            print("Existing output could not be read; running full enrichment")
+
     api_key = os.environ.get("S2_API_TOKEN") or os.environ.get("S2_API_KEY")
     if not api_key:
         print("ERROR: S2_API_TOKEN env var not set", file=sys.stderr)
@@ -591,6 +607,40 @@ def main() -> int:
     oa_records = [normalize_openalex(w) for w in oa_raw]
     s2_records = [normalize_s2(p) for p in s2_raw]
     merged = merge(oa_records, s2_records)
+
+    current_keys = {dedupe_key(rec) for rec in merged}
+    new_keys = current_keys - previous_by_key.keys()
+    for rec in merged:
+        prior = previous_by_key.get(dedupe_key(rec))
+        if not prior:
+            continue
+        if prior.get("institutions") and not rec.get("institutions"):
+            rec["institutions"] = prior["institutions"]
+        prior_authors = {
+            _our_name_key(author.get("name") or ""): author
+            for author in prior.get("authors") or []
+        }
+        for author in rec.get("authors") or []:
+            if author.get("affiliations"):
+                continue
+            previous_author = prior_authors.get(
+                _our_name_key(author.get("name") or "")
+            )
+            if not previous_author or not previous_author.get("affiliations"):
+                continue
+            author["affiliations"] = previous_author["affiliations"]
+            if not author.get("affiliation"):
+                author["affiliation"] = previous_author.get("affiliation")
+
+    records_to_enrich = (
+        [rec for rec in merged if dedupe_key(rec) in new_keys]
+        if previous_by_key
+        else merged
+    )
+    print(
+        f"  {len(new_keys)} new records; "
+        f"enriching {len(records_to_enrich)} records from external sources"
+    )
 
     # Backfill author affiliations from the S2 author batch endpoint for any
     # author still missing one (the citations endpoint occasionally omits them).
@@ -621,7 +671,7 @@ def main() -> int:
         print(f"  Filled affiliations for {len(s2_aff_map)} authors")
 
     # CrossRef: per-author affiliations keyed by DOI
-    all_dois = [r["doi"] for r in merged if r.get("doi")]
+    all_dois = [r["doi"] for r in records_to_enrich if r.get("doi")]
     print(f"Fetching CrossRef affiliations for {len(all_dois)} DOIs...")
     cr_map = fetch_crossref_affiliations(all_dois)
     cr_filled = apply_crossref(merged, cr_map)
@@ -630,7 +680,7 @@ def main() -> int:
     # arXiv LaTeX source: paper-level institution lists
     all_arxiv = [
         re.sub(r"v\d+$", "", r["arxivId"])
-        for r in merged
+        for r in records_to_enrich
         if r.get("arxivId")
     ]
     print(f"Fetching arXiv source for {len(all_arxiv)} papers (slow — ~2s each)...")

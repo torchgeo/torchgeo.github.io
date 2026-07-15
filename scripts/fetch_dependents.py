@@ -26,6 +26,7 @@ import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date
 from pathlib import Path
+from urllib.parse import urljoin
 
 DEPENDENTS_URL = (
     "https://github.com/microsoft/torchgeo/network/dependents"
@@ -78,7 +79,10 @@ def scrape_dependents() -> list[str]:
         )
         if not nxt or new == 0:
             break
-        url = "https://github.com" + nxt.group(1).replace("&amp;", "&")
+        url = urljoin(
+            "https://github.com",
+            nxt.group(1).replace("&amp;", "&"),
+        )
         time.sleep(0.4)
     return repos
 
