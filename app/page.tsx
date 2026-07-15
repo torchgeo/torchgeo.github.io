@@ -7,8 +7,11 @@ import { HeroMosaic } from "./hero-mosaic";
 import { type Video, VideoCarousel } from "./video-carousel";
 
 const SPONSOR_URL = "https://github.com/sponsors/torchgeo";
+const TORCHGEO_DOCS_URL = "https://docs.torchgeo.org/en/stable/";
+const TORCHGEO_BENCH_DOCS_URL = "https://torchgeo.org/torchgeo-bench/";
+const TERRATORCH_DOCS_URL = "https://torchgeo.org/terratorch/";
 const GET_STARTED_URL =
-  "https://torchgeo.readthedocs.io/en/stable/tutorials/getting_started.html";
+  "https://docs.torchgeo.org/en/stable/tutorials/getting_started.html";
 const SLACK_URL =
   "https://torchgeo.slack.com/join/shared_invite/zt-22rse667m-eqtCeNW0yI000Tl4B~2PIw";
 
@@ -235,6 +238,24 @@ function ArrowUpRightIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+function ChevronDownIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      focusable="false"
+      {...props}
+    >
+      <path d="m4 6 4 4 4-4" />
+    </svg>
+  );
+}
+
 function GitHubIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" {...props}>
@@ -289,10 +310,35 @@ export default function Home() {
             >
               <GitHubIcon />
             </a>
-            <a className="btn btn--primary topbar__docs" href={GET_STARTED_URL}>
-              Documentation
-              <ArrowUpRightIcon className="arrow" />
-            </a>
+            <details className="docs-menu">
+              <summary className="btn btn--primary topbar__docs">
+                Docs
+                <ChevronDownIcon className="docs-menu__chevron" />
+              </summary>
+              <div className="docs-menu__panel">
+                <a href={TORCHGEO_DOCS_URL}>
+                  <span>
+                    <strong>TorchGeo</strong>
+                    <small>Datasets, samplers, and models</small>
+                  </span>
+                  <ArrowUpRightIcon />
+                </a>
+                <a href={TORCHGEO_BENCH_DOCS_URL}>
+                  <span>
+                    <strong>TorchGeo-Bench</strong>
+                    <small>Reproducible model evaluation</small>
+                  </span>
+                  <ArrowUpRightIcon />
+                </a>
+                <a href={TERRATORCH_DOCS_URL}>
+                  <span>
+                    <strong>TerraTorch</strong>
+                    <small>Foundation-model fine-tuning</small>
+                  </span>
+                  <ArrowUpRightIcon />
+                </a>
+              </div>
+            </details>
           </div>
         </div>
       </header>
@@ -301,7 +347,7 @@ export default function Home() {
         <div className="shell hero__inner">
           <div className="hero__copy">
             <span className="kicker">
-              PyTorch ecosystem library · OSGeo community project
+              PyTorch ecosystem library · OSGeo project
             </span>
             <h1 className="hero__title">
               Geospatial data and models for PyTorch.
@@ -310,6 +356,8 @@ export default function Home() {
               TorchGeo provides CRS-aware datasets and samplers, multispectral
               transforms, and pretrained weights for satellite and aerial
               imagery. Its interfaces compose with PyTorch and Lightning.
+              TorchGeo and <a href={TERRATORCH_DOCS_URL}>TerraTorch</a> are
+              governed by the independent TorchGeo Organization.
             </p>
 
             <div className="hero__actions">
@@ -426,9 +474,10 @@ export default function Home() {
             </h3>
             <p>
               Founded at Microsoft AI for Good in 2021, TorchGeo is now an
-              independent OSGeo Community Project governed in public by the
-              TorchGeo Organization. Sponsorships fund maintainer time, model
-              checkpoints, dataset hosting, and workshops.
+              independent OSGeo Project. The TorchGeo Organization governs
+              TorchGeo and <a href={TERRATORCH_DOCS_URL}>TerraTorch</a> in
+              public. Sponsorships fund maintainer time, model checkpoints,
+              dataset hosting, and workshops.
             </p>
             <div className="sponsors__actions">
               <a className="btn btn--orange" href={SPONSOR_URL}>
@@ -520,7 +569,7 @@ export default function Home() {
           <div className="section__cta">
             <a
               className="text-link"
-              href="https://torchgeo.readthedocs.io/en/stable/api/datasets.html"
+              href="https://docs.torchgeo.org/en/stable/api/datasets.html"
             >
               Browse all datasets <ArrowUpRightIcon />
             </a>
@@ -572,7 +621,7 @@ export default function Home() {
           <div className="section__cta">
             <a
               className="text-link"
-              href="https://torchgeo.readthedocs.io/en/stable/api/models.html"
+              href="https://docs.torchgeo.org/en/stable/api/models.html"
             >
               Browse all checkpoints
               <ArrowUpRightIcon className="arrow" />
@@ -681,7 +730,7 @@ export default function Home() {
               <p>
                 An official PyTorch Ecosystem Library for geospatial deep
                 learning. MIT-licensed, developed in the open as an OSGeo
-                Community Project.
+                Project.
               </p>
               <details className="footer__cite">
                 <summary className="footer__cite-head">
@@ -703,7 +752,7 @@ export default function Home() {
               <h5>Project</h5>
               <ul>
                 <li>
-                  <a href="https://torchgeo.readthedocs.io">Documentation</a>
+                  <a href={TORCHGEO_DOCS_URL}>Documentation</a>
                 </li>
                 <li>
                   <a href="https://github.com/torchgeo/torchgeo">GitHub</a>

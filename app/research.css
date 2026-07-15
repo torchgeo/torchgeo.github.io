@@ -70,6 +70,84 @@ body {
   font-size: 0.82rem;
 }
 
+.docs-menu {
+  position: relative;
+}
+
+.docs-menu > summary {
+  list-style: none;
+}
+
+.docs-menu > summary::-webkit-details-marker {
+  display: none;
+}
+
+.docs-menu__chevron {
+  width: 13px;
+  height: 13px;
+  transition: transform 160ms var(--ease);
+}
+
+.docs-menu[open] .docs-menu__chevron {
+  transform: rotate(180deg);
+}
+
+.docs-menu__panel {
+  position: absolute;
+  top: calc(100% + 0.65rem);
+  right: 0;
+  z-index: 60;
+  display: grid;
+  width: min(19rem, calc(100vw - 2 * var(--gutter)));
+  padding: 0.3rem;
+  background: var(--paper);
+  border: 1px solid var(--line-2);
+  box-shadow: 0 12px 30px rgba(14, 17, 22, 0.12);
+}
+
+.docs-menu__panel > a {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.65rem 0.7rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.docs-menu__panel > a:last-child {
+  border-bottom: 0;
+}
+
+.docs-menu__panel > a:hover {
+  background: var(--paper-2);
+}
+
+.docs-menu__panel span {
+  display: grid;
+  gap: 0.05rem;
+}
+
+.docs-menu__panel strong {
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.docs-menu__panel small {
+  color: var(--muted);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.65rem;
+}
+
+.docs-menu__panel svg {
+  width: 13px;
+  height: 13px;
+}
+
+.sponsors__copy p a {
+  color: var(--navy-fg);
+  border-bottom: 1px solid var(--navy-fg-muted);
+}
+
 .btn {
   border-radius: 3px;
   font-family: var(--font-body), Georgia, serif;

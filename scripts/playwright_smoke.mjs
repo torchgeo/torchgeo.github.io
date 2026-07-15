@@ -82,6 +82,28 @@ log(
   (await releaseLink.textContent())?.trim() === "v0.9.0 · Feb 2026",
 );
 
+await page.locator(".docs-menu > summary").click();
+const docsMenuLinks = await page
+  .locator(".docs-menu__panel a")
+  .evaluateAll((links) => links.map((link) => link.getAttribute("href")));
+log(
+  "documentation menu links all organization projects",
+  docsMenuLinks.length === 3 &&
+    docsMenuLinks.includes("https://docs.torchgeo.org/en/stable/") &&
+    docsMenuLinks.includes("https://torchgeo.org/torchgeo-bench/") &&
+    docsMenuLinks.includes("https://torchgeo.org/terratorch/"),
+  docsMenuLinks.join(" "),
+);
+await page.locator(".docs-menu > summary").click();
+
+const projectLanguage = await page.locator("body").innerText();
+log(
+  "organization status and TerraTorch are current",
+  !projectLanguage.includes("OSGeo Community Project") &&
+    projectLanguage.includes("OSGeo Project") &&
+    projectLanguage.includes("TerraTorch"),
+);
+
 // 3. Hero asset renders the Sentinel-2 scene.
 const heroSceneOk = await page.locator(".hero-asset__scene").evaluate((el) => {
   const img = /** @type {HTMLImageElement} */ (el);
@@ -287,6 +309,22 @@ const m = await ctxMobile.newPage();
 await m.goto(BASE, { waitUntil: "networkidle" });
 log("mobile hero visible", await m.locator(".hero__title").isVisible());
 log("mobile topbar visible", await m.locator(".topbar").isVisible());
+await m.locator(".docs-menu > summary").click();
+const mobileDocsMenu = await m.locator(".docs-menu__panel").evaluate((el) => {
+  const rect = el.getBoundingClientRect();
+  return {
+    left: Math.round(rect.left),
+    right: Math.round(rect.right),
+    visible: rect.width > 0 && rect.height > 0,
+  };
+});
+log(
+  "mobile documentation menu fits the viewport",
+  mobileDocsMenu.visible &&
+    mobileDocsMenu.left >= 0 &&
+    mobileDocsMenu.right <= 390,
+  JSON.stringify(mobileDocsMenu),
+);
 const mobileWidths = await m.evaluate(() => ({
   viewport: window.innerWidth,
   document: document.documentElement.scrollWidth,
